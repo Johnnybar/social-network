@@ -28,8 +28,8 @@ app.use(bodyParser.json());
 app.use(express.static('./public'));
 
 
-//ADD EVERYTHING ABOVE THIS ONE v̍
-app.get('/welcome', function(req, res){
+
+app.get('/welcome/', function(req, res){
     if (req.session.user) {
         res.redirect('/');
     } else {
@@ -65,17 +65,23 @@ app.post('/register', function(req,res){
     }
 });
 
+app.post('/login', function(req, res){
+    console.log('running log in');
+    console.log(req.body);
+
+});
+
 app.post('/logOut', ((req,res)=>{
     req.session = null;
     res.redirect('/welcome');
 }));
 
+//ADD EVERYTHING ABOVE THIS ONE v̍
+
 app.get('*', function(req, res){
-    // if (!req.session.user) {
-    //     res.redirect('/welcome');
-    // } else {
+
     res.sendFile(__dirname + '/index.html');
-    // }
+
 });
 
 app.listen(8080, function() {

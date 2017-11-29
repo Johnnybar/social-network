@@ -4,7 +4,7 @@ export default function Logo (){
     return(
         <div>
         <div>
-            Logo
+            <img id='logo' src='logo.jpg' />
         </div>
         <form  action='logOut' method='post'>
         <button type='submit'>

@@ -14,6 +14,8 @@ else{
 var db = spicedPg(dbUrl);
 
 
+/////////////////////////////////////////REGISTRATION QUERIES///////////////////////////////////////
+
 exports.registerUser =function(first, last, email, password) {
     return db.query(
         'INSERT INTO users (first, last, email, password) VALUES ($1, $2, $3, $4) returning id',
@@ -35,6 +37,31 @@ exports.hashPassword = function(plainTextPassword) {
     });
 };
 
+
+exports.checkPassword = function(textEnteredInLoginForm, hashedPasswordFromDatabase) {
+    return new Promise(function(resolve, reject) {
+        bcrypt.compare(textEnteredInLoginForm, hashedPasswordFromDatabase, function(err, doesMatch) {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(doesMatch);
+            }
+        });
+    });
+};
+
+/////////////////////////////////////////LOGIN QUERIES///////////////////////////////////////
+
+exports.getHash = function(username) {
+    return db.query(
+        'SELECT password FROM users WHERE username =($1)',
+        [username]
+    ).then((results) => {
+        return results.rows[0].password;
+    }).catch((err) => {
+        console.log(err);
+    });
+};
 
 exports.checkPassword = function(textEnteredInLoginForm, hashedPasswordFromDatabase) {
     return new Promise(function(resolve, reject) {
