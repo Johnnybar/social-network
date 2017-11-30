@@ -5,8 +5,32 @@ const cookieSession = require('cookie-session');
 const cookieParser = require('cookie-parser');
 var db = require('./config/db');
 const bodyParser = require('body-parser');
+const s3 = require('./s3');
+const multer = require('multer');
+const uidSafe = require('uid-safe');
+const path = require('path');
+var imgUrl = 'emptyProfile.gif';
 
 app.use(compression());
+
+
+var diskStorage = multer.diskStorage({
+    destination: function (req, file, callback) {
+        callback(null, __dirname + '/uploads');
+    },
+    filename: function (req, file, callback) {
+        uidSafe(24).then(function(uid) {
+            callback(null, uid + path.extname(file.originalname));
+        });
+    }
+});
+
+var uploader = multer({
+    storage: diskStorage,
+    limits: {
+        fileSize: 2097152
+    }
+});
 
 if (process.env.NODE_ENV != 'production') {
     app.use('/bundle.js', require('http-proxy-middleware')({
@@ -51,7 +75,7 @@ app.post('/register', function(req,res){
         db.hashPassword(req.body.password)
             .then((hashedPassword) => {
                 console.log(hashedPassword);
-                db.registerUser(req.body.first, req.body.last, req.body.email, hashedPassword)
+                db.registerUser(req.body.first, req.body.last, req.body.email, hashedPassword, imgUrl)
                     .then((results)=>{
                         req.session.user = { id: results[0].id, email: req.body.email, first:req.body.first, last: req.body.last  };
                         req.session.loggedIn = 'true';
@@ -78,7 +102,6 @@ app.post('/login', function(req, res){
                             req.session.user ={
                                 id: id
                             };
-                            console.log('this is the req.session.user.id', req.session.user.id);
                             res.json({success:true});
                         } else {
                             console.log("that password did not match");
@@ -101,7 +124,6 @@ app.get('/user', function(req,res){
         res.redirect('/');
     }
     else{
-        console.log('session user exists, this is the id on get user', req.session.user.id);
         db.getUserInp(req.session.user.id)
             .then(userDetails =>{
                 res.json(userDetails);
@@ -110,7 +132,25 @@ app.get('/user', function(req,res){
     }
 });
 
+
+app.post('/upload', uploader.single('file'), function(req,res){
+    if(req.file){
+        var imgurl = req.file.filename;
+        var id = req.session.user.id;
+        s3.upload(req.file).then(function(){
+            console.log(imgurl, id);
+            return db.updateProfile(imgurl, id);
+        }).then(function(){
+            console.log('this is imgurl', imgurl);
+            res.json({ imgurl:"https://s3.amazonaws.com/johnnybar/"+ imgurl });
+        }).catch(function(){
+            res.json({ success:false });
+        });
+    }
+});
+
 app.post('/logOut', ((req,res)=>{
+
     req.session = null;
     res.redirect('/welcome/');
 

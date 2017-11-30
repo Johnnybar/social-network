@@ -1,6 +1,7 @@
 var spicedPg = require('spiced-pg');
 var bcrypt = require('bcryptjs');
 var dbUrl;
+const bucket = require('./config.json');
 
 if (process.env.DATABASE_URL){
     dbUrl = process.env.DATABASE_URL;
@@ -16,10 +17,10 @@ var db = spicedPg(dbUrl);
 
 /////////////////////////////////////////REGISTRATION QUERIES///////////////////////////////////////
 
-exports.registerUser =function(first, last, email, password) {
+exports.registerUser =function(first, last, email, password, imgUrl) {
     return db.query(
-        'INSERT INTO users (first, last, email, password) VALUES ($1, $2, $3, $4) returning id',
-        [first, last, email, password]
+        'INSERT INTO users (first, last, email, password, imgUrl) VALUES ($1, $2, $3, $4, $5) returning id',
+        [first, last, email, password, imgUrl]
     ).then((results) => {
         return results.rows;
     });
@@ -77,13 +78,32 @@ exports.checkPassword = function(textEnteredInLoginForm, hashedPasswordFromDatab
 
 
 /////////////////////////////////////////GETTING USER DATA///////////////////////////////
-exports.getUserInp = function(id){
+exports.getUserInp = function(result){
     return db.query(
-        'SELECT first, last FROM users WHERE id =($1)',
-        [id]
+        'SELECT first, last, imgUrl FROM users WHERE id =($1)',
+        [result]
     ).then((results) => {
+        results.rows.forEach(elem => {
+            elem.imgurl = bucket.s3Url + elem.imgurl;
+        });
         return results.rows[0];
     }).catch((err) => {
         console.log(err);
+    });
+};
+
+/////////////////////////////////////////GETTING USER DATA///////////////////////////////
+
+exports.updateProfile = function(imgurl, id) {
+    return db.query(
+        `UPDATE users
+        SET imgurl =($1)
+        WHERE id =($2)`,
+        [imgurl, id]
+    ).then((results) => {
+        return results.rows[0];
+
+    }).catch((err) => {
+        return err;
     });
 };

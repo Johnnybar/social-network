@@ -4,17 +4,25 @@ export default class ProfilePic extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            image: '',
+            imgurl:'',
             first: '',
             last: '',
-            showUploader: function(){
-                console.log('uploader should be here!');
-            }
+            // showUploader: function(){
+            //     console.log('uploader should be here!');
+            // }
         }
 }
+
         render(){
             return(
-                <h2>Profile Pic</h2>
+                <div class='appHeaderWrapper'>
+                    <h1>This is app</h1>
+                    <div>
+                        <img onClick={this.props.showUploader} src={this.props.imgurl} id='profilePic' alt={this.props.first}/>
+                    </div>
+                    {/* NEED TO ADD LAST TO ALT */}
+
+                </div>
             )
         }
 }

@@ -1,25 +1,41 @@
+import React from 'react';
+import axios from 'axios'
+
+
 export default class UploadProfilePic extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            setImage: "https://www.security-camera-warehouse.com/images/profile.png"
-
         };
     }
 
-    doUpload() {
+    doUpload(e) {
+        var file = e.target.files[0];
+        var formData = new FormData();
+        formData.append('file', file);
         axios.post('/upload', formData).then((resp) => {
-            this.props.setImage(resp.data.imageUrl)
+            console.log('this is resp', resp);
+            this.props.setImage(resp.data.imgurl)
         })
     }
+
+    // handleSubmit() {
+    //
+    //     const {imgurl} = this.state;
+    //     const data = {imgurl}
+    // }
 
     render() {
 
         return (
             <div>
-                <input type = "file" onChange = {this.doUpload} />
-                {/*<img src = { this.state.setImage }  />*/}
+
+                <h1>UPLOAD PROFILE</h1>
+                <input type = "file" onChange = {(e)=> this.doUpload(e)} />
+                {/* <img src = { this.state.setImage }  /> */}
+                {/* <button onClick={() => this.handleSubmit() }>Submit</button> */}
+
             </div>
         )
 

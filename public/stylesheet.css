@@ -1,4 +1,17 @@
+
+
+
 #logo{
-    width:150px;
+    width:70px;
     transform: rotate(90deg);
+}
+
+.appHeaderWrapper{
+    display: flex;
+    flex-direction: row;
+}
+
+#profilePic{
+    width: 20%;
+
 }
