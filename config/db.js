@@ -52,14 +52,14 @@ exports.checkPassword = function(textEnteredInLoginForm, hashedPasswordFromDatab
 
 /////////////////////////////////////////LOGIN QUERIES///////////////////////////////////////
 
-exports.getHash = function(username) {
+exports.getHash = function(email) {
     return db.query(
-        'SELECT password FROM users WHERE username =($1)',
-        [username]
+        'SELECT password, id FROM users WHERE email =($1)',
+        [email]
     ).then((results) => {
-        return results.rows[0].password;
+        return results.rows[0];
     }).catch((err) => {
-        console.log(err);
+        return err;
     });
 };
 
@@ -72,5 +72,18 @@ exports.checkPassword = function(textEnteredInLoginForm, hashedPasswordFromDatab
                 resolve(doesMatch);
             }
         });
+    });
+};
+
+
+/////////////////////////////////////////GETTING USER DATA///////////////////////////////
+exports.getUserInp = function(id){
+    return db.query(
+        'SELECT first, last FROM users WHERE id =($1)',
+        [id]
+    ).then((results) => {
+        return results.rows[0];
+    }).catch((err) => {
+        console.log(err);
     });
 };

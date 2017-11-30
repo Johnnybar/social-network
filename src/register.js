@@ -31,7 +31,6 @@ export default class Register extends React.Component {
             if (resp.data.success) {
                 console.log('success i guess');
                 location.replace('/');
-                // return resp.json();
 
             } else {
                 console.log('there was an error');

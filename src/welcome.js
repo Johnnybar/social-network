@@ -2,7 +2,9 @@ import React, {Component} from 'react';
 import Register from './register';
 import Logo from './logo';
 import Login from './login';
-import { Link } from 'react-router'
+import { Link } from 'react-router';
+import Logout from './logout';
+
 
 
 export default class Welcome extends Component{
@@ -14,10 +16,13 @@ export default class Welcome extends Component{
         return(
             <div>
                 <h1>This is welcome</h1>
+                <Logout />
                 {this.props.children}
                 <Link to="/">Register</Link>
                 <br/>
                 <Link to="/login">Login</Link>
+
+
             </div>
         )
     }

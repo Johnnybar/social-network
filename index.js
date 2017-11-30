@@ -24,7 +24,6 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(bodyParser.json());
 
-
 app.use(express.static('./public'));
 
 
@@ -39,7 +38,7 @@ app.get('/welcome/', function(req, res){
 
 app.get('/', function(req, res){
     if (!req.session.user) {
-        res.redirect('/welcome');
+        res.redirect('/welcome/');
     } else {
         res.sendFile(__dirname + '/index.html');
     }
@@ -65,15 +64,56 @@ app.post('/register', function(req,res){
     }
 });
 
-app.post('/login', function(req, res){
-    console.log('running log in');
-    console.log(req.body);
 
+app.post('/login', function(req, res){
+
+    if(req.body.email && req.body.password){
+        let id;
+        db.getHash(req.body.email)
+            .then((results)=>{
+                id = results.id;
+                db.checkPassword(req.body.password, results.password)
+                    .then((doesMatch) => {
+                        if(doesMatch){
+                            req.session.user ={
+                                id: id
+                            };
+                            console.log('this is the req.session.user.id', req.session.user.id);
+                            res.json({success:true});
+                        } else {
+                            console.log("that password did not match");
+                        }
+                    }).catch((err) => {
+                        console.log(err);
+                        res.json({success: false});
+                    });
+            }).catch(function(){
+                console.log('ERROR in catch of getHash');
+            });
+    }
+    else{
+        console.log('EERRRRROOORR');
+    }
+});
+
+app.get('/user', function(req,res){
+    if (!req.session.user) {
+        res.redirect('/');
+    }
+    else{
+        console.log('session user exists, this is the id on get user', req.session.user.id);
+        db.getUserInp(req.session.user.id)
+            .then(userDetails =>{
+                res.json(userDetails);
+            });
+
+    }
 });
 
 app.post('/logOut', ((req,res)=>{
     req.session = null;
-    res.redirect('/welcome');
+    res.redirect('/welcome/');
+
 }));
 
 //ADD EVERYTHING ABOVE THIS ONE v̍

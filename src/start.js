@@ -25,7 +25,7 @@ const LoggedInRouter = (
     </Router>
 );
 
-if (location.pathname == '/welcome'){
+if (location.pathname == '/welcome/'){
     router = notLoggedInRouter;
 } else{
     router = LoggedInRouter;

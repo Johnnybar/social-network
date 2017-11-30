@@ -25,18 +25,18 @@ export default class Login extends React.Component {
         axios.post('/login', data)
         .then(resp => {
             if (resp.data.success) {
-                console.log('success i guess in login');
                 location.replace('/');
 
             } else {
                 console.log('there was an error in axios post');
                 this.setState({
-                    error: true
+                    error: true,
+                    email:'',
+                    password:''
                 })
             }
         })
     }
-
 
     render() {
         return (
