@@ -4,8 +4,10 @@ import Welcome from './welcome';
 import Logo  from './logo';
 import Login from './login';
 import App from './app'
-import { Router, Route, IndexRoute, hashHistory } from 'react-router';
+import { Router, Route, IndexRoute, hashHistory, browserHistory } from 'react-router';
 import Register from './register';
+import Profile from './profile'
+import OtherUsers from './otherusers'
 
 let router;
 
@@ -19,9 +21,11 @@ const notLoggedInRouter = (
 );
 
 const LoggedInRouter = (
-    <Router history={hashHistory}>
+    <Router history={browserHistory}>
         <Route path="/" component={App}>
-  	</Route>
+        <Route path="/users/:id" component={OtherUsers} />
+        <IndexRoute component={Profile} />
+    </Route>
     </Router>
 );
 

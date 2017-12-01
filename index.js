@@ -10,6 +10,7 @@ const multer = require('multer');
 const uidSafe = require('uid-safe');
 const path = require('path');
 var imgUrl = 'emptyProfile.gif';
+var bio = 'This is your default description';
 
 app.use(compression());
 
@@ -75,7 +76,7 @@ app.post('/register', function(req,res){
         db.hashPassword(req.body.password)
             .then((hashedPassword) => {
                 console.log(hashedPassword);
-                db.registerUser(req.body.first, req.body.last, req.body.email, hashedPassword, imgUrl)
+                db.registerUser(req.body.first, req.body.last, req.body.email, hashedPassword, imgUrl, bio)
                     .then((results)=>{
                         req.session.user = { id: results[0].id, email: req.body.email, first:req.body.first, last: req.body.last  };
                         req.session.loggedIn = 'true';
@@ -148,6 +149,33 @@ app.post('/upload', uploader.single('file'), function(req,res){
         });
     }
 });
+
+app.post('/updateBio', function(req,res){
+    console.log('running updateBio');
+    var bio= req.body.bio;
+    db.updateBio(bio, req.session.user.id)
+        .then(()=>{
+            res.json({ bio,
+                success:true });
+        }).catch(function(err){
+            console.log(err);
+        });
+
+});
+
+app.get('/otherUsersJson', function(req,res){
+
+    var id= req.query.id;
+    db.getUserInp(id)
+        .then((data)=>{
+            res.json({ data,
+                success:true });
+        }).catch(function(err){
+            console.log(err);
+        });
+});
+
+
 
 app.post('/logOut', ((req,res)=>{
 

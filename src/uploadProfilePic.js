@@ -20,17 +20,9 @@ export default class UploadProfilePic extends React.Component {
         })
     }
 
-    // handleSubmit() {
-    //
-    //     const {imgurl} = this.state;
-    //     const data = {imgurl}
-    // }
-
     render() {
-
         return (
             <div>
-
                 <h1>UPLOAD PROFILE</h1>
                 <input type = "file" onChange = {(e)=> this.doUpload(e)} />
                 {/* <img src = { this.state.setImage }  /> */}

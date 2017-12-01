@@ -17,10 +17,10 @@ var db = spicedPg(dbUrl);
 
 /////////////////////////////////////////REGISTRATION QUERIES///////////////////////////////////////
 
-exports.registerUser =function(first, last, email, password, imgUrl) {
+exports.registerUser =function(first, last, email, password, imgUrl, bio) {
     return db.query(
-        'INSERT INTO users (first, last, email, password, imgUrl) VALUES ($1, $2, $3, $4, $5) returning id',
-        [first, last, email, password, imgUrl]
+        'INSERT INTO users (first, last, email, password, imgUrl, bio) VALUES ($1, $2, $3, $4, $5, $6) returning id',
+        [first, last, email, password, imgUrl, bio]
     ).then((results) => {
         return results.rows;
     });
@@ -78,10 +78,10 @@ exports.checkPassword = function(textEnteredInLoginForm, hashedPasswordFromDatab
 
 
 /////////////////////////////////////////GETTING USER DATA///////////////////////////////
-exports.getUserInp = function(result){
+exports.getUserInp = function(id){
     return db.query(
-        'SELECT first, last, imgUrl FROM users WHERE id =($1)',
-        [result]
+        'SELECT first, last, imgurl, bio, email FROM users WHERE id =($1)',
+        [id]
     ).then((results) => {
         results.rows.forEach(elem => {
             elem.imgurl = bucket.s3Url + elem.imgurl;
@@ -92,7 +92,7 @@ exports.getUserInp = function(result){
     });
 };
 
-/////////////////////////////////////////GETTING USER DATA///////////////////////////////
+/////////////////////////////////////////UPDATE PIC///////////////////////////////
 
 exports.updateProfile = function(imgurl, id) {
     return db.query(
@@ -107,3 +107,24 @@ exports.updateProfile = function(imgurl, id) {
         return err;
     });
 };
+
+
+/////////////////////////////////////////UPDATE USER PROFILE///////////////////////////////
+
+exports.updateBio = function(bio, id) {
+    console.log('running the db query to update bio ', bio, id);
+    return db.query(
+        `UPDATE users
+        SET bio =($1)
+        WHERE id =($2)`,
+        [bio, id]
+    ).then(() => {
+        console.log('in the db query to update bio');
+
+    }).catch((err) => {
+        return err;
+    });
+};
+
+
+//////////////////////////////////////////GET OTHER USERS INFO////////////////////////////

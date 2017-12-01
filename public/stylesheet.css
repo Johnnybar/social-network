@@ -12,6 +12,11 @@
 }
 
 #profilePic{
-    width: 20%;
+    width: 50px;
 
+}
+
+
+#profilePicOnPage{
+    width: 200px;
 }

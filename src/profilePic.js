@@ -19,6 +19,7 @@ export default class ProfilePic extends React.Component {
                     <h1>This is app</h1>
                     <div>
                         <img onClick={this.props.showUploader} src={this.props.imgurl} id='profilePic' alt={this.props.first}/>
+                        
                     </div>
                     {/* NEED TO ADD LAST TO ALT */}
 
