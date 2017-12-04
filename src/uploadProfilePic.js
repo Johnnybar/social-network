@@ -15,7 +15,6 @@ export default class UploadProfilePic extends React.Component {
         var formData = new FormData();
         formData.append('file', file);
         axios.post('/upload', formData).then((resp) => {
-            console.log('this is resp', resp);
             this.props.setImage(resp.data.imgurl)
         })
     }

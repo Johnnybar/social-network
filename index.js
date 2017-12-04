@@ -166,6 +166,8 @@ app.post('/updateBio', function(req,res){
 app.get('/otherUsersJson', function(req,res){
 
     var id= req.query.id;
+    console.log('this is the user we are checking out: ',id);
+    console.log('this is the logged in user: ', req.session.user.id);
     db.getUserInp(id)
         .then((data)=>{
             res.json({ data,
@@ -175,10 +177,47 @@ app.get('/otherUsersJson', function(req,res){
         });
 });
 
+app.get('/getFriendshipStatus/:recipientId', function(req,res){
 
+    var recipientId= req.params.recipientId;
+    var senderId = req.session.user.id;
+
+    db.getFriendshipStatus(senderId, recipientId)
+        .then((results)=>{
+            res.json({ results,
+                success:true });
+        }).catch(function(err){
+            console.log(err);
+        });
+});
+
+
+
+app.post ('/changeFriendshipStatus/:recipientId', function(req,res){
+    var senderId =  req.session.user.id;
+    var recipientId = req.params.recipientId;
+    var status = req.body.status;
+
+    db.sendFriendRequest(senderId, recipientId,status)
+        .then(()=>{
+            res.json({ success:true});
+        }).catch(function(){
+            res.json({ success: false});
+        });
+});
+
+app.post('/deleteFriendRequest/:recipientId', function(req,res){
+    console.log('in post delete friend request');
+    var recipientId = req.params.recipientId;
+    db.deleteFriendRequest(recipientId)
+        .then(()=>{
+            res.json({ success:true});
+        }).catch(()=>{
+            res.json({ success: false});
+        });
+});
 
 app.post('/logOut', ((req,res)=>{
-
     req.session = null;
     res.redirect('/welcome/');
 

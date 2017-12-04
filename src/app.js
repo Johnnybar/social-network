@@ -7,6 +7,7 @@ import UploadProfilePic from './uploadProfilePic'
 import Profile from './profile'
 import UpdateProfileInfo from './UpdateProfileInfo'
 import OtherUsers from './otherusers'
+import FriendButton from './friendbutton'
 
 
 
@@ -15,6 +16,7 @@ export default class App extends React.Component {
         super(props);
         this.state = {}
         this.showBioUpdate=this.showBioUpdate.bind(this)
+        this.sendFriendRequest = this.sendFriendRequest.bind(this)
 
     }
 
@@ -22,7 +24,12 @@ export default class App extends React.Component {
         this.setState({bioUpdateIsVisible: !this.state.bioUpdateIsVisible})
 }
 
+    sendFriendRequest(){
+        console.log('clicked inside sendFriendRequest');
+        // this.setState({status: 'Friend Request Sent'});
 
+
+    }
 
     componentDidMount() {
         axios.get('/user').then(({ data }) => {
@@ -31,14 +38,15 @@ export default class App extends React.Component {
         })
     }
     render() {
-        const {first, last, bio, imgurl, email, showBioUpdate} = this.state
+        const {first, last, bio, imgurl, email, showBioUpdate, sendFriendRequest} = this.state
         const children = React.cloneElement(this.props.children, {
             showBioUpdate: this.showBioUpdate,
+            sendFriendRequest: this.sendFriendRequest,
             first,
             last,
             bio,
             imgurl,
-            email
+            email,
         })
         const setImage = (imgurl) => {
             this.setState({

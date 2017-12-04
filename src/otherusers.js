@@ -1,20 +1,7 @@
 import React from 'react';
 import axios from 'axios';
+import FriendButton from './friendbutton'
 
-
-// export default function OtherUsers (props){
-//     var id = props.params.id;
-//     console.log('this is the id in OtherUsers ',id);
-//     axios.get('/otherUsersJson?id='+id)
-//         .then((resp)=>{
-//             console.log('this is the first name in OtherUsers ',resp.data.data.first)
-//             return (
-//                 <div>
-//                 <h1>{resp.data.data.first}</h1>
-//                 </div>
-//             )
-//         })
-// }
 
 
 export default class OtheUsers extends React.Component {
@@ -23,20 +10,23 @@ export default class OtheUsers extends React.Component {
     this.state = {};
   }
 
+
 componentDidMount() {//CHECK OUT MEANING OF THIS
   let id = this.props.params.id
-  axios.get('/otherUsersJson?id='+id).then(({data}) => {//CHECK OUT WHAT ?id does here
-    this.setState(data.data);//CHECK IF NECESSARY
-    console.log('state', this.state);
+  axios.get('/otherUsersJson?id='+id).then(({data}) => {
+    this.setState(data.data, function(){
+
+    });//setting the keys and values we received from data to the state object
   })
 }
 
   render() {
-
+const {sendFriendRequest} = this.props
 return (<div>
-<h1>{this.state.first}</h1>
-<h1>{this.state.bio}</h1>
-<img src={this.state.imgurl}/>
+<h2>{this.state.first}</h2>
+<h3>{this.state.bio}</h3>
+<img src={this.state.imgurl} id='otherUsersImg'/>
+<FriendButton recipientId={this.props.params.id} sendFriendRequest={sendFriendRequest}/>
 </div>)
   }
 }

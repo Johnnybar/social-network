@@ -14,6 +14,7 @@ else{
 }
 var db = spicedPg(dbUrl);
 
+const PENDING = 1, ACCEPTED = 2, CANCELED = 3, TERMINATED = 4, REJECTED = 5;
 
 /////////////////////////////////////////REGISTRATION QUERIES///////////////////////////////////////
 
@@ -127,4 +128,41 @@ exports.updateBio = function(bio, id) {
 };
 
 
-//////////////////////////////////////////GET OTHER USERS INFO////////////////////////////
+//////////////////////////////////////////GET FRIENDSHIP STATUS////////////////////////////
+
+exports.getFriendshipStatus = function(senderId, recipientId){
+    return db.query(
+        'SELECT status FROM friend_statuses WHERE sender_id =($1) AND recipient_id=($2)',
+        [senderId, recipientId]
+    ).then((results) => {
+        return results.rows;
+    }).catch((err) => {
+        console.log(err);
+    });
+};
+
+////////////////////////////////SEND AND DELETE FRIEND REQUESTS///////////////////////////////////////////////////////
+
+exports.sendFriendRequest = (sender_id, recipient_id, status) => {
+    return db.query(
+        `INSERT INTO friend_statuses (sender_id, recipient_id, status) VALUES ($1, $2, $3)`,
+        [sender_id, recipient_id, status]
+    ).then(() => {
+    }).catch(err => {
+        console.log(err);
+    });
+
+};
+
+exports.deleteFriendRequest = function(recipient_id){
+    return db.query(
+        'DELETE from friend_statuses WHERE recipient_id = $1',
+        [recipient_id]
+    ).then(() => {
+        console.log('deleted request');
+    }).catch((err) => {
+        console.log(err);
+    });
+};
+
+////////////////////////////////ACCEPT AND REJECT FRIEND REQUESTS///////////////////////////////////////////////////////

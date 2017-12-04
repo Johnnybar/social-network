@@ -8,6 +8,7 @@ import { Router, Route, IndexRoute, hashHistory, browserHistory } from 'react-ro
 import Register from './register';
 import Profile from './profile'
 import OtherUsers from './otherusers'
+import FriendButton from './friendbutton'
 
 let router;
 
