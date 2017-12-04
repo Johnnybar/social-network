@@ -5,17 +5,16 @@ import axios from 'axios'
 export default class FriendButton extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-        status: 'Send Friend Request'
-    }
+    this.state = {    }
   }
-  
+
 componentDidMount(){
 
 var recipientId = this.props.recipientId;
 
     axios.get('/getFriendshipStatus/'+ recipientId).then(({data}) => {
-        if (data.results[0].length == 0) {
+        console.log('this is data results in friend button: ',data.results);
+        if (data.results.length == 0) {
               this.setState({ status: "Send Friend Request"})
           }
           else {
@@ -37,21 +36,23 @@ var recipientId = this.props.recipientId;
 handleSubmit(){
     var recipientId = this.props.recipientId;
     if (this.state.status == "Send Friend Request") {
-           this.state.status = "Cancel Friend Request"
+           this.state.status = "Cancel Friend Request";
+           axios.post('/changeFriendshipStatus/' + recipientId, this.state)
+           .then((resp)=>{
+               if (resp.data.success){
+                   this.setState(this.state)
+               }
+               else {
+                   this.setState({ error: true })
+               }
+           })
        } else if (this.state.status == "Cancel Friend Request") {
            this.state.status = "Send Friend Request";
+           this.setState(this.state)
            axios.post('/deleteFriendRequest/'+recipientId, recipientId)
        }
 
-    axios.post('/changeFriendshipStatus/' + recipientId, this.state)
-    .then((resp)=>{
-        if (resp.data.success){
-            this.setState(this.state)
-        }
-        else {
-            this.setState({ error: true })
-        }
-    })
+
 }
 
   render() {

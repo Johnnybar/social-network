@@ -184,16 +184,27 @@ app.get('/getFriendshipStatus/:recipientId', function(req,res){
 
     db.getFriendshipStatus(senderId, recipientId)
         .then((results)=>{
-            res.json({ results,
-                success:true });
-        }).catch(function(err){
-            console.log(err);
+            if(results.length==0){
+                db.getFriendshipStatus(recipientId, senderId)
+                    .then((results)=>{
+                        results = results[0];
+                        console.log('this is results [0]: ',results);
+                        res.json({results,
+                            success:true});
+                    }).catch(function(err){
+                        console.log(err);
+                    });
+            }
+            else{
+                res.json({ results,
+                    success:true });
+            }
         });
 });
 
 
 
-app.post ('/changeFriendshipStatus/:recipientId', function(req,res){
+app.post('/changeFriendshipStatus/:recipientId', function(req,res){
     var senderId =  req.session.user.id;
     var recipientId = req.params.recipientId;
     var status = req.body.status;

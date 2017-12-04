@@ -141,6 +141,7 @@ exports.getFriendshipStatus = function(senderId, recipientId){
     });
 };
 
+
 ////////////////////////////////SEND AND DELETE FRIEND REQUESTS///////////////////////////////////////////////////////
 
 exports.sendFriendRequest = (sender_id, recipient_id, status) => {
