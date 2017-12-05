@@ -11,21 +11,18 @@ export default class FriendButton extends React.Component {
 componentDidMount(){
 
 var recipientId = this.props.recipientId;
+console.log('this is recipient ID: ', recipientId);
 
     axios.get('/getFriendshipStatus/'+ recipientId).then(({data}) => {
-        console.log('this is data results in friend button: ',data.results);
-        if (data.results.length == 0) {
-              this.setState({ status: "Send Friend Request"})
-          }
-          else {
-              this.setState(data.results[0])
-          }
 
 
       if (data.success){
-          console.log('this is the state', this.state);
-          this.setState(data.results)
-
+          if (data.results.length == 0) {
+              this.setState({ status: "Send Friend Request"})
+          }
+          else {
+              this.setState(data.results)
+          };
       }
       else{
           this.setState({error: true});
@@ -50,6 +47,19 @@ handleSubmit(){
            this.state.status = "Send Friend Request";
            this.setState(this.state)
            axios.post('/deleteFriendRequest/'+recipientId, recipientId)
+       }
+       else if (this.state.status == 'Accept Friend Request'){
+           axios.post('/acceptFriendRequest/'+ recipientId, this.state).then(resp=>{
+               if (resp.data.success){
+                   this.setState({status: "Terminate Friendship"});
+               }
+               else{
+                   this.setState({error: true})
+               }
+           })
+       }
+       else if (this.state.status == 'Terminate Friend Request'){
+           console.log('i am here');
        }
 
 

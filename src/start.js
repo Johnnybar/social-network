@@ -4,11 +4,12 @@ import Welcome from './welcome';
 import Logo  from './logo';
 import Login from './login';
 import App from './app'
-import { Router, Route, IndexRoute, hashHistory, browserHistory } from 'react-router';
+import { Router, Route, IndexRoute, hashHistory, browserHistory, Redirect } from 'react-router';
 import Register from './register';
 import Profile from './profile'
 import OtherUsers from './otherusers'
 import FriendButton from './friendbutton'
+
 
 let router;
 
@@ -25,6 +26,7 @@ const LoggedInRouter = (
     <Router history={browserHistory}>
         <Route path="/" component={App}>
         <Route path="/users/:id" component={OtherUsers} />
+        <Redirect from ="*" to="/" />
         <IndexRoute component={Profile} />
     </Route>
     </Router>

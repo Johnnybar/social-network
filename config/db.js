@@ -166,4 +166,18 @@ exports.deleteFriendRequest = function(recipient_id){
     });
 };
 
+
+exports.acceptFriendRequest = (status, recipientId, senderId) => {
+    return db.query(
+        `UPDATE friend_statuses
+        SET status = $1
+        WHERE recipient_id = $2
+        AND sender_id = $3`,
+        [status, recipientId, senderId]
+    ).then(() => {
+    }).catch(err => {
+        console.log(err);
+    });
+
+};
 ////////////////////////////////ACCEPT AND REJECT FRIEND REQUESTS///////////////////////////////////////////////////////

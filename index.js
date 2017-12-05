@@ -187,22 +187,24 @@ app.get('/getFriendshipStatus/:recipientId', function(req,res){
             if(results.length==0){
                 db.getFriendshipStatus(recipientId, senderId)
                     .then((results)=>{
-                        results = results[0];
-                        console.log('this is results [0]: ',results);
-                        res.json({results,
-                            success:true});
-                    }).catch(function(err){
-                        console.log(err);
+                        if(results.length ==0){
+                            res.json ({ results, success: true});
+                        }
+                        else{
+                            results = {status: 'Accept Friend Request'};
+                            res.json ({results, senderId, success: true});
+                        }
+                    }).catch(function(){
+                        res.json({success: false});
                     });
             }
             else{
+                results = {status: 'Cancel Friend Request'};
                 res.json({ results,
                     success:true });
             }
         });
 });
-
-
 
 app.post('/changeFriendshipStatus/:recipientId', function(req,res){
     var senderId =  req.session.user.id;
@@ -218,7 +220,6 @@ app.post('/changeFriendshipStatus/:recipientId', function(req,res){
 });
 
 app.post('/deleteFriendRequest/:recipientId', function(req,res){
-    console.log('in post delete friend request');
     var recipientId = req.params.recipientId;
     db.deleteFriendRequest(recipientId)
         .then(()=>{
@@ -226,6 +227,21 @@ app.post('/deleteFriendRequest/:recipientId', function(req,res){
         }).catch(()=>{
             res.json({ success: false});
         });
+});
+
+app.post('/acceptFriendRequest/:recipientId', (req,res) => {
+    var recipientId = req.params.recipientId;
+    var senderId = req.session.user.id;
+    var status = req.body.status;
+    console.log('this is reqbody: ',req.body);
+
+    db.acceptFriendRequest(status, senderId, recipientId)
+        .then(() => {
+            res.json({ success:true});
+        }).catch(() => {
+            res.json({ success: false});
+        });
+
 });
 
 app.post('/logOut', ((req,res)=>{
