@@ -155,10 +155,11 @@ exports.sendFriendRequest = (sender_id, recipient_id, status) => {
 
 };
 
-exports.deleteFriendRequest = function(recipient_id){
+
+exports.deleteFriendRequest = function(sender_id, recipient_id){
     return db.query(
-        'DELETE from friend_statuses WHERE recipient_id = $1',
-        [recipient_id]
+        'DELETE from friend_statuses WHERE sender_id = $1 and recipient_id= $2',
+        [sender_id, recipient_id]
     ).then(() => {
         console.log('deleted request');
     }).catch((err) => {
@@ -178,6 +179,4 @@ exports.acceptFriendRequest = (status, recipientId, senderId) => {
     }).catch(err => {
         console.log(err);
     });
-
 };
-////////////////////////////////ACCEPT AND REJECT FRIEND REQUESTS///////////////////////////////////////////////////////
