@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios'
 
 
+
 export default class UploadProfilePic extends React.Component {
 
     constructor(props) {
@@ -24,6 +25,7 @@ export default class UploadProfilePic extends React.Component {
             <div>
                 <h1>UPLOAD PROFILE</h1>
                 <input type = "file" onChange = {(e)=> this.doUpload(e)} />
+
                 {/* <img src = { this.state.setImage }  /> */}
                 {/* <button onClick={() => this.handleSubmit() }>Submit</button> */}
 

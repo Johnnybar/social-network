@@ -255,14 +255,48 @@ app.post('/acceptFriendRequest/:recipientId', (req,res) => {
 
 });
 
-// app.post('/terminateFrienship/:recipientId', function(req,res){
-//     console.log('in app post terminateFrienship in indexjs');
-//     var recipientId = req.params.recipientId;
-//     db.terminateFrienship(recipientId)
+app.get('/allFriendRequests', (req,res)=>{
+
+    db.getAllFriends()
+        .then((results)=>{
+            res.json({results,
+                success:true});
+        }).catch(()=>{
+            res.json({success:false});
+        });
+
+});
+
+app.get('/getFriendsInfoToFriends', (req,res)=>{
+    var id = req.session.user.id;
+    db.getFriendsInfoToFriends(id)
+        .then(results=>{
+            res.json({results,
+                success:true});
+        }).catch(()=>{
+            res.json({success:false});
+        });
+});
+
+app.post('/acceptFriendOnFriends', (req,res)=>{
+    var id = req.session.user.id;
+    var otherId = req.body.id;
+    db.acceptFriendOnFriends('Terminate Friendship', otherId, id)
+        .then(()=>{
+            res.json({otherId, success:true});
+        }).catch(()=>{
+            res.json({success:false});
+        });
+});
+
+// app.post('/terminateFriendOnFriends', (req,res)=>{
+//     var id = req.session.user.id;
+//     db.terminateFriendOnFriends(id)
 //         .then(()=>{
-//             res.json({ success:true});
+//             console.log('in app post terminateFriendOnFriends');
+//             res.json({id, success:true});
 //         }).catch(()=>{
-//             res.json({ success: false});
+//             res.json({success:false});
 //         });
 // });
 

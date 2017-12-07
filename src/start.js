@@ -9,7 +9,13 @@ import Register from './register';
 import Profile from './profile'
 import OtherUsers from './otherusers'
 import FriendButton from './friendbutton'
-
+import Friends from './friends'
+import { composeWithDevTools } from 'redux-devtools-extension';
+const store = createStore(reducer, composeWithDevTools(applyMiddleware(reduxPromise)));
+import { Provider } from 'react-redux';
+import { createStore, applyMiddleware } from 'redux';
+import reduxPromise from 'redux-promise';
+import reducer from './reducers';
 
 let router;
 
@@ -23,13 +29,16 @@ const notLoggedInRouter = (
 );
 
 const LoggedInRouter = (
+    <Provider store = {store}>
     <Router history={browserHistory}>
         <Route path="/" component={App}>
         <Route path="/users/:id" component={OtherUsers} />
+        <Route path="/friends" component ={Friends} />
         <Redirect from ="*" to="/" />
         <IndexRoute component={Profile} />
     </Route>
     </Router>
+</Provider>
 );
 
 if (location.pathname == '/welcome/'){

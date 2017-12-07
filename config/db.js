@@ -14,7 +14,7 @@ else{
 }
 var db = spicedPg(dbUrl);
 
-const PENDING = 1, ACCEPTED = 2, CANCELED = 3, TERMINATED = 4, REJECTED = 5;
+// const PENDING = 1, ACCEPTED = 2, CANCELED = 3, TERMINATED = 4, REJECTED = 5;
 
 /////////////////////////////////////////REGISTRATION QUERIES///////////////////////////////////////
 
@@ -180,3 +180,86 @@ exports.acceptFriendRequest = (status, recipientId, senderId) => {
         console.log(err);
     });
 };
+//////////////////////GET ALL FRIENDS////////////////////////
+
+exports.getAllFriends = function(){
+    return db.query(
+        'SELECT * FROM friend_statuses'
+    ).then((results) => {
+        return results.rows;
+    }).catch((err) => {
+        console.log(err);
+    });
+};
+//////GET FRIENDS INFO TO FRIENDS////////////////////
+// exports.getFriendsInfoToFriends = function(recipientId){
+//     const PENDING = 'Cancel Friend Request',ACCEPTED ='Terminate Friendship';
+//     return db.query(
+//         `SELECT users.id, first, last, imgurl, status
+//         FROM friend_statuses
+//         JOIN users
+//         ON (status = ${PENDING} AND recipient_id = $1 AND sender_id = users.id)
+//         OR (status = ${ACCEPTED} AND recipient_id = $1 AND sender_id = users.id)`,
+//         [recipientId]
+//     ).then((results)=>{
+//         console.log('this is results rows of getFriendsInfoToFriends: ',results.rows);
+//         return results.rows;
+//     });
+// };
+
+//////GET FRIENDS INFO TO FRIENDS////////////////////
+
+exports.getFriendsInfoToFriends = (recipientId) => {
+    const PENDING = 'Cancel Friend Request', TERMINATE = 'Terminate Friendship';
+
+    return db.query(
+
+        `SELECT users.id, first, last, imgurl, status
+        FROM friend_statuses
+        JOIN users
+        ON (status = '${PENDING}' AND recipient_id = $1 AND sender_id = users.id)
+        OR (status = '${TERMINATE}' AND recipient_id = $1 AND sender_id = users.id)
+        OR (status = '${TERMINATE}' AND sender_id = $1 AND recipient_id = users.id)`,
+        [recipientId]
+
+    ).then((results) => {
+
+        results.rows.forEach(elem => {
+            elem.imgurl = bucket.s3Url + elem.imgurl;
+        });
+
+        console.log("in the getListOfFriendsFromDatabase then block:", results.rows);
+
+        return results.rows;
+    }).catch(err => {
+        console.log(err);
+    });
+
+};
+
+///////ACCEPT FRIEND ON FRIENDS///////////////////////////////
+
+exports.acceptFriendOnFriends = (status, otherId, currentId) => {
+    return db.query(
+        `UPDATE friend_statuses
+        SET status = $1
+        WHERE sender_id = $2
+        AND recipient_id = $3`,
+        [status, otherId, currentId]
+    ).then(() => {
+    }).catch(err => {
+        console.log(err);
+    });
+};
+
+// exports.terminateFriendOnFriends = function(id){
+//     return db.query(
+//         `DELETE from friend_statuses WHERE sender_id = $1
+//         OR recipient_id= $1`,
+//         [id]
+//     ).then(() => {
+//         console.log('terminated friendship on db terminateFriendOnFriends');
+//     }).catch((err) => {
+//         console.log(err);
+//     });
+// };

@@ -15,7 +15,7 @@ componentDidMount() {
   let id = this.props.params.id
   axios.get('/otherUsersJson?id='+id).then(({data}) => {
     this.setState(data.data, function(){
-        
+
     });//setting the keys and values we received from data to the state object
   })
 }
