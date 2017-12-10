@@ -23,7 +23,7 @@ export default class UploadProfilePic extends React.Component {
     render() {
         return (
             <div>
-                <h1>UPLOAD PROFILE</h1>
+                <h4><i>Change Profile Picture</i></h4>
                 <input type = "file" onChange = {(e)=> this.doUpload(e)} />
 
                 {/* <img src = { this.state.setImage }  /> */}

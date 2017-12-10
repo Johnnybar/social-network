@@ -8,6 +8,7 @@ import Profile from './profile'
 import UpdateProfileInfo from './UpdateProfileInfo'
 import OtherUsers from './otherusers'
 import FriendButton from './friendbutton'
+import socketConnections from './socket'
 
 
 
@@ -33,9 +34,12 @@ export default class App extends React.Component {
 
     componentDidMount() {
         axios.get('/user').then(({ data }) => {
-            console.log('this is the user data: ',data);
+            console.log('this is the logged in user data: ',data);
             this.setState(data);
+            socketConnections()
         })
+
+
     }
     render() {
         const {first, last, bio, imgurl, email, showBioUpdate, sendFriendRequest} = this.state
@@ -71,9 +75,9 @@ export default class App extends React.Component {
                     showUploader={() => this.setState({ uploaderIsVisible: !this.state.uploaderIsVisible })}
                 />
                 {this.state.uploaderIsVisible && <UploadProfilePic setImage={setImage}/>}
-                {this.state.bioUpdateIsVisible && <UpdateProfileInfo setBio = {setBio} />}
                 {children}
                 {/* <OtherUsers /> */}
+                {this.state.bioUpdateIsVisible && <UpdateProfileInfo setBio = {setBio} />}
                 <Logout />
             </div>
         )

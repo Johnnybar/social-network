@@ -8,12 +8,11 @@ export default class UpdateProfileInfo extends React.Component {
     }
 
 
-
     updateBio(){
         axios.post('/updateBio', this.state)
         .then(resp => {
             if (resp.data.success) {
-                this.props.setBio(resp.data.bio)
+                this.props.setBio(resp.data.bio);
 
             } else {
                 console.log('there was an error in update bio');
@@ -31,8 +30,8 @@ export default class UpdateProfileInfo extends React.Component {
 
         return(
             <div>
-                <h5>Update Profile Information</h5>
-                <textarea onChange={(e) => this.setState({bio: e.target.value}) }  name= 'bio' placeholder='bio' />
+
+                <textarea onChange={(e) => this.setState({bio: e.target.value}) }  name= 'bio' placeholder='New Bio' />
                 <button onClick={e => this.updateBio(e) }>Update bio</button>
             </div>
         )

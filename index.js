@@ -11,6 +11,11 @@ const uidSafe = require('uid-safe');
 const path = require('path');
 var imgUrl = 'emptyProfile.gif';
 var bio = 'This is your default description';
+const server = require('http').Server(app);
+const io = require('socket.io')(server);
+let onlineUsers = [];
+
+
 
 app.use(compression());
 
@@ -65,7 +70,9 @@ app.get('/', function(req, res){
     if (!req.session.user) {
         res.redirect('/welcome/');
     } else {
+
         res.sendFile(__dirname + '/index.html');
+
     }
 });
 
@@ -289,15 +296,75 @@ app.post('/acceptFriendOnFriends', (req,res)=>{
         });
 });
 
-// app.post('/terminateFriendOnFriends', (req,res)=>{
-//     var id = req.session.user.id;
-//     db.terminateFriendOnFriends(id)
-//         .then(()=>{
-//             console.log('in app post terminateFriendOnFriends');
-//             res.json({id, success:true});
-//         }).catch(()=>{
-//             res.json({success:false});
-//         });
+app.post('/terminateFriendOnFriends', (req,res)=>{
+    var id = req.session.user.id;
+    var otherId = req.body.id;
+    db.terminateFriendOnFriends(otherId, id)
+        .then(()=>{
+            res.json({otherId, success:true});
+        }).catch(()=>{
+            res.json({success:false});
+        });
+});
+
+app.get('/connected/:socketId', (req,res, next)=>{
+
+    var socketId= req.params.socketId;
+    if (!req.session.user) {
+        return next();
+    }
+    const userDidJoin = !onlineUsers.find(obj => obj.userId == req.session.user.id);
+    if(userDidJoin){
+        onlineUsers.push({
+            userId: req.session.user.id,
+            socketId: req.params.socketId
+        });
+        db.getSpecificUserById(req.session.user.id).then(user=>{
+            io.sockets.sockets[socketId].broadcast.emit('userJoined', user);
+        });
+        const ids = onlineUsers.map(
+            user => user.userId
+        );
+
+        db.getUsersByIds(ids).then(users =>{
+            console.log('this is users after db query on connected/socket: ',users);
+            io.sockets.sockets[socketId].emit('onlineUsers', users);
+        }).catch((err)=>{
+            console.log('there was an error ', err);
+        });
+        // }
+
+    }
+});
+
+app.get('/disconnected/:socketId', (req,res)=>{
+    var socketId= req.params.socketId;
+    console.log('in appget disconnected');
+
+    //LOOK FOR THIS SOCKET  AND REMOVE IT FROM ONLINE USERS
+    for( var i = onlineUsers.length-1; i--;){
+        if ( onlineUsers[i].socketId == socketId) {
+            onlineUsers.splice(i, 1);
+            console.log(onlineUsers);
+        }
+    }
+    ///CHECK TO SEE IF THE REQ SESSION USER THAT LEFT IS NO LONGER IN LIST OF ONLINE USERS AND RETURN HIS ID SO OTHER USERS
+    //CAN UPDATE ACCORDINGLY
+    for( var j = onlineUsers.length-1; j--;){
+        if ( onlineUsers[j].userId == req.session.user.id) {
+            console.log('user still online');
+        }
+        else{
+            io.sockets.sockets[socketId].broadcast.emit('userLeft', onlineUsers[j].userId);
+        }
+    }
+
+});
+
+// app.get('/getOnlineUsers', (req,res)=>{
+//
+//     res.json(onlineUsers);
+//
 // });
 
 app.post('/logOut', ((req,res)=>{
@@ -312,8 +379,19 @@ app.get('*', function(req, res){
 
     res.sendFile(__dirname + '/index.html');
 
+
 });
 
-app.listen(8080, function() {
+server.listen(8080, function() {
     console.log("I'm listening.");
+});
+
+io.on('connection', function(socket) {
+    socket.emit('uponConnection');
+    console.log(`socket with the id ${socket.id} is now connected`);
+
+    socket.on('disconnect', function() {
+        socket.emit('uponDisconnection');
+        console.log(`socket with the id ${socket.id} is now disconnected`);
+    });
 });

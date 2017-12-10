@@ -13,9 +13,10 @@ render(){
 
     return(
         <div>
-            <h1>This is Profile</h1>
+            <h1>Your Profile</h1>
             <p>Hello, {first} {last}</p>
-            <p onClick={showBioUpdate}>Your profile description: {bio}</p>
+            <p>Your profile description: {bio}</p>
+            <h6 onClick={showBioUpdate}>Change Your Description ▼</h6>
 
         </div>
     )

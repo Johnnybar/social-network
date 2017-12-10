@@ -19,12 +19,18 @@ export default function(state = {}, action) {
         });
     }
 
+    if (action.type == 'TERMINATE_ON_FRIENDS') {
+        state = Object.assign({}, state, {
+            friends: state.friends.filter(friend =>
+                friend.id != action.id)
+        });
+    }
 
-    // if (action.type == 'TERMINATE_ON_FRIENDS') {
-    //     state = Object.assign({}, state, {
-    //         friends: friends.filter(friend => friend.id != action.friendId)
-    //     });
-    // }
+    if (action.type == 'PLACE_ONLINE_FRIENDS') {
+        state = Object.assign({}, state, {
+            onlineUsers: action.onlineUsers
+        });
+    }
 
     return state;
 }

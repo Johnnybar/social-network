@@ -227,9 +227,6 @@ exports.getFriendsInfoToFriends = (recipientId) => {
         results.rows.forEach(elem => {
             elem.imgurl = bucket.s3Url + elem.imgurl;
         });
-
-        console.log("in the getListOfFriendsFromDatabase then block:", results.rows);
-
         return results.rows;
     }).catch(err => {
         console.log(err);
@@ -252,14 +249,37 @@ exports.acceptFriendOnFriends = (status, otherId, currentId) => {
     });
 };
 
-// exports.terminateFriendOnFriends = function(id){
-//     return db.query(
-//         `DELETE from friend_statuses WHERE sender_id = $1
-//         OR recipient_id= $1`,
-//         [id]
-//     ).then(() => {
-//         console.log('terminated friendship on db terminateFriendOnFriends');
-//     }).catch((err) => {
-//         console.log(err);
-//     });
-// };
+exports.terminateFriendOnFriends = function(senderId, recipientId){
+    return db.query(
+        `DELETE from friend_statuses WHERE sender_id = $1
+        AND recipient_id = $2 OR sender_id = $2 AND recipient_id = $1`,
+        [senderId, recipientId]
+    ).then(() => {
+    }).catch((err) => {
+        console.log(err);
+    });
+};
+///////////////GET LIST OF ONLINE FRIENDS//////////////////////
+
+exports.getUsersByIds= function(arrayOfIds) {
+    return db.query(
+        `SELECT * FROM users WHERE id = ANY($1)`,
+        [arrayOfIds]
+    ).then((results)=>{
+        return results.rows;
+    }).catch((err)=>{
+        console.log(err);
+    });
+};
+
+////////GET SPECIFIC USER WHO JOINED///////////////////////
+exports.getSpecificUserById= function(users) {
+    return db.query(
+        `SELECT * FROM users WHERE id = ($1)`,
+        [users]
+    ).then((results)=>{
+        return results.rows;
+    }).catch((err)=>{
+        console.log(err);
+    });
+};

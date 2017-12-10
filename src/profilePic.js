@@ -20,7 +20,7 @@ export default class ProfilePic extends React.Component {
                     <h1>This is app</h1>
                     <div>
                         <img onClick={this.props.showUploader} src={this.props.imgurl} id='profilePic' alt={this.props.first}/>
-                        <Link to="/friends">Link to friends page</Link>
+                        <Link to="/friends"><h5>Your Friend Lists</h5></Link>
                     </div>
                     {/* NEED TO ADD LAST TO ALT */}
 

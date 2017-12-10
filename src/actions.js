@@ -3,7 +3,6 @@ import axios from 'axios';
 
 export const allFriendRequests = function() {
     return axios.get('/getFriendsInfoToFriends').then((friends)=>{
-        console.log('this is now our friends in actions: ', friends);
         return {
             type:'GET_FRIENDS',
             friends:friends.data.results
@@ -15,20 +14,27 @@ export const allFriendRequests = function() {
 
 export const acceptFriendOnFriends = function(id) {
     return axios.post('/acceptFriendOnFriends', {id}).then((resp)=>{
-        console.log('accepted this friend request on friends page', resp.data.otherId);
         return {
             type:'ACCEPT_ON_FRIENDS',
-            id: resp.data.otherId
+            id
         };
     });
 };
 
-// export const terminateFriendOnFriends = function() {
-//     return axios.post('/terminateFriendOnFriends').then((friends)=>{
-//         console.log('terminated this friend request on friends page');
-//         return {
-//             type:'TERMINATE_ON_FRIENDS',
-//             friends:friends.data.results
-//         };
-//     });
-// };
+export const terminateFriendOnFriends = function(id) {
+    return axios.post('/terminateFriendOnFriends', {id}).then((resp)=>{
+        return {
+            type:'TERMINATE_ON_FRIENDS',
+            friends:resp.data.otherId,
+            id
+        };
+    });
+};
+
+export function placeOnlineUsers(onlineUsers) {
+    return {
+        type: "PLACE_ONLINE_USERS",
+        onlineUsers
+    };
+
+}

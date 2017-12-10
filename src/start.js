@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import * as io from 'socket.io-client';
 import Welcome from './welcome';
 import Logo  from './logo';
 import Login from './login';
@@ -10,12 +11,14 @@ import Profile from './profile'
 import OtherUsers from './otherusers'
 import FriendButton from './friendbutton'
 import Friends from './friends'
+import Online from './online'
 import { composeWithDevTools } from 'redux-devtools-extension';
-const store = createStore(reducer, composeWithDevTools(applyMiddleware(reduxPromise)));
+export const store = createStore(reducer, composeWithDevTools(applyMiddleware(reduxPromise)));
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import reduxPromise from 'redux-promise';
 import reducer from './reducers';
+import socketConnections from './socket'
 
 let router;
 
@@ -34,6 +37,7 @@ const LoggedInRouter = (
         <Route path="/" component={App}>
         <Route path="/users/:id" component={OtherUsers} />
         <Route path="/friends" component ={Friends} />
+        <Route path="/online" component ={Online} />
         <Redirect from ="*" to="/" />
         <IndexRoute component={Profile} />
     </Route>
@@ -51,11 +55,3 @@ ReactDOM.render(
     router,
     document.querySelector('main')
 );
-
-
-//This is a component v̍
-// function HelloWorld() {
-//     return (
-//         <div>Hello, World!</div>
-//     );
-// }
