@@ -266,6 +266,9 @@ exports.getUsersByIds= function(arrayOfIds) {
         `SELECT * FROM users WHERE id = ANY($1)`,
         [arrayOfIds]
     ).then((results)=>{
+        results.rows.forEach(elem => {
+            elem.imgurl = bucket.s3Url + elem.imgurl;
+        });
         return results.rows;
     }).catch((err)=>{
         console.log(err);

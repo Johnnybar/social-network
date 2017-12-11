@@ -308,7 +308,6 @@ app.post('/terminateFriendOnFriends', (req,res)=>{
 });
 
 app.get('/connected/:socketId', (req,res, next)=>{
-
     var socketId= req.params.socketId;
     if (!req.session.user) {
         return next();
@@ -320,46 +319,22 @@ app.get('/connected/:socketId', (req,res, next)=>{
             socketId: req.params.socketId
         });
         db.getSpecificUserById(req.session.user.id).then(user=>{
-            io.sockets.sockets[socketId].broadcast.emit('userJoined', user);
-        });
-        const ids = onlineUsers.map(
-            user => user.userId
-        );
-
-        db.getUsersByIds(ids).then(users =>{
-            console.log('this is users after db query on connected/socket: ',users);
-            io.sockets.sockets[socketId].emit('onlineUsers', users);
-        }).catch((err)=>{
-            console.log('there was an error ', err);
+            io.sockets.emit('userJoined', user);
         });
         // }
-
     }
+    const ids = onlineUsers.map(
+        user => user.userId
+    );
+    db.getUsersByIds(ids).then(users =>{
+        console.log('this is users after db query on connected/socket: ',users);
+        io.sockets.sockets[socketId].emit('onlineUsers', users);
+    }).catch((err)=>{
+        console.log('there was an error ', err);
+    });
 });
 
-app.get('/disconnected/:socketId', (req,res)=>{
-    var socketId= req.params.socketId;
-    console.log('in appget disconnected');
 
-    //LOOK FOR THIS SOCKET  AND REMOVE IT FROM ONLINE USERS
-    for( var i = onlineUsers.length-1; i--;){
-        if ( onlineUsers[i].socketId == socketId) {
-            onlineUsers.splice(i, 1);
-            console.log(onlineUsers);
-        }
-    }
-    ///CHECK TO SEE IF THE REQ SESSION USER THAT LEFT IS NO LONGER IN LIST OF ONLINE USERS AND RETURN HIS ID SO OTHER USERS
-    //CAN UPDATE ACCORDINGLY
-    for( var j = onlineUsers.length-1; j--;){
-        if ( onlineUsers[j].userId == req.session.user.id) {
-            console.log('user still online');
-        }
-        else{
-            io.sockets.sockets[socketId].broadcast.emit('userLeft', onlineUsers[j].userId);
-        }
-    }
-
-});
 
 // app.get('/getOnlineUsers', (req,res)=>{
 //
@@ -387,11 +362,23 @@ server.listen(8080, function() {
 });
 
 io.on('connection', function(socket) {
-    socket.emit('uponConnection');
+
     console.log(`socket with the id ${socket.id} is now connected`);
 
     socket.on('disconnect', function() {
-        socket.emit('uponDisconnection');
         console.log(`socket with the id ${socket.id} is now disconnected`);
+        if(!onlineUsers){
+            return null;
+        }
+        //GET REQ SESSION USER
+        // determine if that user is no longer in your list at all.
+        var disconnectedUser = onlineUsers.find(user=> user.socketId ==socket.id);
+        var userId = disconnectedUser.userId;
+        onlineUsers = onlineUsers.filter(user=> user != disconnectedUser);
+        if (onlineUsers.every(onlineUsers => onlineUsers.userId != userId) ){
+            io.sockets.emit('userLeft', {
+                userId: userId
+            });
+        }
     });
 });

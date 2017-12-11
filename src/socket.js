@@ -3,7 +3,7 @@ import {store} from './start';
 import * as io from 'socket.io-client';
 import axios from 'axios';
 let onlineUsers=[];
-import {placeOnlineUsers} from './actions';
+import {placeOnlineUsers, addUserToOnlineUsers, removeUserFromOnlineUsers} from './actions';
 
 
 let socket;
@@ -11,28 +11,21 @@ let socket;
 // -initialization
 export default function socketConnections(){
     if(!socket){
-        socket =   io.connect({
-            upgrade: false,
-            transports: ['websocket']
-        });
+        socket =   io.connect();
         // socket = io.connect();
-        socket.on('uponConnection', function(){
+        socket.on('connect', function(){
             axios.get('/connected/' + socket.id);
         });
-        socket.on('userJoined', (user) => {
-            console.log('this is userJoined on socket.js', user);
-
+        socket.on('userJoined', (userId) => {
+            store.dispatch(addUserToOnlineUsers(userId));
         });
         socket.on('onlineUsers',(users) => {
             store.dispatch(placeOnlineUsers(users));
             console.log('this is online users on socket.js: ', users);
         });
-        socket.on('uponDisconnection',function(){
-            console.log('in userLeft in socket.js');
-            axios.get('/disconnected/'+socket.id);
-        });
-        socket.on('userLeft', (userLeft)=>{
-            console.log('this is the user who left: ', userLeft);
+        socket.on('userLeft', (userId)=>{
+            store.dispatch(removeUserFromOnlineUsers(userId));
+            console.log('this is userLeft: ', userId);
         });
     }
 }

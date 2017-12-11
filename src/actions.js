@@ -38,3 +38,19 @@ export function placeOnlineUsers(onlineUsers) {
     };
 
 }
+
+export function addUserToOnlineUsers(userId) {
+    return {
+        type: "ADD_ONLINE_USER",
+        userId
+    };
+
+}
+
+export function removeUserFromOnlineUsers(userId) {
+    return {
+        type: "REMOVE_ONLINE_USER",
+        userId
+    };
+
+}

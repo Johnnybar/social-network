@@ -26,27 +26,25 @@ export default function(state = {}, action) {
         });
     }
 
-    if (action.type == 'PLACE_ONLINE_FRIENDS') {
+    if (action.type == 'PLACE_ONLINE_USERS') {
         state = Object.assign({}, state, {
             onlineUsers: action.onlineUsers
         });
     }
 
+    if (action.type == 'ADD_ONLINE_USER') {
+        console.log('this is action add online user on reducer: ',action.userId);
+        state = Object.assign({}, state, {
+            onlineUsers:  state.onlineUsers.concat(action.userId)
+        });
+    }
+
+    if (action.type == 'REMOVE_ONLINE_USER') {
+        console.log('this is action remove online user ',action.userId);
+        state = Object.assign({}, state, {
+            onlineUsers: state.onlineUsers.filter(user => user.userId != action.userId)
+        });
+    }
+
     return state;
 }
-
-
-
-
-// if (action.type == 'ACCEPT_FRIEND') {
-//     state = Object.assign({}, state, {
-//         friends: friends.map(friend => {
-//             if (friend.id == action.id) {
-//                 return Object.assign({}, friend, {
-//                     status: 'ACCEPTED'
-//                 });
-//             }
-//             return friend;
-//         })
-//     });
-// }
