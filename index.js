@@ -341,18 +341,12 @@ app.get('/connected/:socketId', (req,res, next)=>{
     db.getUsersByIds(ids).then(users =>{
         console.log('this is users after db query on connected/socket: ',users);
         io.sockets.sockets[socketId].emit('onlineUsers', users);
+        io.sockets.sockets[socketId].emit('chatMessages', messagesArr);
     }).catch((err)=>{
         console.log('there was an error ', err);
     });
 });
 
-
-
-// app.get('/getOnlineUsers', (req,res)=>{
-//
-//     res.json(onlineUsers);
-//
-// });
 
 app.post('/logOut', ((req,res)=>{
     req.session = null;
@@ -372,8 +366,36 @@ app.get('*', function(req, res){
 server.listen(8080, function() {
     console.log("I'm listening.");
 });
-
+let id;
+const messagesArr = [];
 io.on('connection', function(socket) {
+    socket.on('chat',function(text){
+        for (let i = 0; i < onlineUsers.length; i++) {
+            if (onlineUsers[i].socketId == socket.id) {
+                id = onlineUsers[i].userId;
+            }
+        }
+        db.getSpecificUserById(id)
+            .then((results)=>{
+                const messageWithUser = {
+                    first: results[0].first,
+                    last: results[0].last,
+                    imgurl: results[0].imgurl,
+                    text:text
+                };
+                messagesArr.push(messageWithUser);
+                // console.log('this is messages arr: ',messagesArr);
+                io.sockets.emit('chatMessage', {
+                    messageWithUser
+                });
+            });
+
+
+        //RUN DB QUERY TO GET USER INFO USING ID
+        //PUT RESULTS WITH TEXT MESSAGE INTO messagesArr
+        //EMIT CHATMESSAGES WITH messagesArr
+
+    });
 
     console.log(`socket with the id ${socket.id} is now connected`);
 
@@ -383,7 +405,11 @@ io.on('connection', function(socket) {
             return null;
         }
         else{
+
             var disconnectedUser = onlineUsers.find(user=> user.socketId ==socket.id);
+            if (typeof disconnectedUser == 'undefined'){
+                return null;
+            }
             var userId = disconnectedUser.userId;
             onlineUsers = onlineUsers.filter(user=> user != disconnectedUser);
             if (onlineUsers.every(onlineUsers => onlineUsers.userId != userId) ){

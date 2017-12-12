@@ -3,7 +3,7 @@ import {store} from './start';
 import * as io from 'socket.io-client';
 import axios from 'axios';
 let onlineUsers=[];
-import {placeOnlineUsers, addUserToOnlineUsers, removeUserFromOnlineUsers} from './actions';
+import {placeOnlineUsers, addUserToOnlineUsers, removeUserFromOnlineUsers, getMessages, addSingleMessage} from './actions';
 
 
 let socket;
@@ -26,26 +26,21 @@ export default function socketConnections(){
             store.dispatch(removeUserFromOnlineUsers(userId));
             console.log('this is userLeft: ', userId);
         });
+        socket.on('chatMessages', (messagesArr)=>{
+            console.log('this is messagesArr in socketjs: ', messagesArr);
+            store.dispatch(getMessages(messagesArr));
+        });
+
+        socket.on('chatMessage', (messageWithUser)=>{
+            console.log('this is messageWithUser in socketjs: ', messageWithUser);
+            store.dispatch(addSingleMessage(messageWithUser));
+        });
     }
+    return socket;
 }
 
 
 
-// socket.on('onlineUsers', function() {
-//     socket.emit('onlineUsers', {
-//         message: 'This is online users'
-//     });
-// });
-// socket.on('userJoined', function() {
-//     socket.emit('userJoined', {
-//         message: 'This is user Joined'
-//     });
-// });
-// socket.on('userLeft', function() {
-//     socket.emit('userLeft', {
-//         message: 'This is user left'
-//     });
-// });
 
 
 

@@ -1,6 +1,9 @@
 import React from 'react';
+const defaultState = {
+    messagesArr: []
+};
 
-export default function(state = {}, action) {
+export default function(state = defaultState, action) {
     if (action.type == 'GET_FRIENDS') {
         state = Object.assign({}, state, {
             friends: action.friends
@@ -40,11 +43,6 @@ export default function(state = {}, action) {
         else{
             console.log('this is action add online user on reducer: ',action.userId);
 
-
-
-
-
-
             //MAKE A CHECK TO AVOID ADDING DUPLICATE
             state = Object.assign({}, state, {
                 onlineUsers:  state.onlineUsers.concat(action.userId)
@@ -66,6 +64,21 @@ export default function(state = {}, action) {
             });
         }
     }
+
+    if (action.type == 'GET_MESSAGES') {
+        console.log('in get messages reducer', action);
+        state = Object.assign({}, state, {
+            messagesArr: action.messagesArr
+
+        });
+    }
+
+    if (action.type == 'ADD_SINGLE_MESSAGE') {
+        state = Object.assign({}, state, {
+            messagesArr: [ ...state.messagesArr, action.messageWithUser ]
+        });
+    }
+
     console.log('reducer state: ', state);
     return state;
 }

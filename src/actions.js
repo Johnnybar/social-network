@@ -55,3 +55,28 @@ export function removeUserFromOnlineUsers(userId) {
     };
 
 }
+
+export function getMessages(messagesArr) {
+    return {
+        type: "GET_MESSAGES",
+        messagesArr
+
+    };
+
+}
+
+
+export function addSingleMessage(messageWithUser) {
+    console.log('this is messageWithUser in actions: ', messageWithUser);
+    return {
+        type: "ADD_SINGLE_MESSAGE",
+        messageWithUser
+
+    };
+
+}
+// if (action.type == 'ADD_SINGLE_MESSAGE') {
+//     state = Object.assign({}, state, {
+//         messagesArr: [ ...messagesArr, action.messageWithUser ]
+//     });
+// }

@@ -5,7 +5,7 @@ import {allFriendRequests} from './actions';
 import {acceptFriendOnFriends} from './actions';
 import {terminateFriendOnFriends} from './actions'
 import { Link } from 'react-router';
- 
+
 
 const mapStateToProps = function(state) {
     return {
@@ -18,7 +18,6 @@ const mapStateToProps = function(state) {
 
 const mapDispatchToProps = function(state) {
     return {
-        // bio: state.user && state.user.bio
     };
 };
 

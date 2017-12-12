@@ -12,6 +12,7 @@ import OtherUsers from './otherusers'
 import FriendButton from './friendbutton'
 import Friends from './friends'
 import Online from './online'
+import Chat from './chat'
 import { composeWithDevTools } from 'redux-devtools-extension';
 export const store = createStore(reducer, composeWithDevTools(applyMiddleware(reduxPromise)));
 import { Provider } from 'react-redux';
@@ -38,6 +39,7 @@ const LoggedInRouter = (
         <Route path="/users/:id" component={OtherUsers} />
         <Route path="/friends" component ={Friends} />
         <Route path="/online" component ={Online} />
+        <Route path="/chat" component={Chat} />
         <Redirect from ="*" to="/" />
         <IndexRoute component={Profile} />
     </Route>
