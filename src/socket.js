@@ -21,7 +21,6 @@ export default function socketConnections(){
         });
         socket.on('onlineUsers',(users) => {
             store.dispatch(placeOnlineUsers(users));
-            console.log('this is online users on socket.js: ', users);
         });
         socket.on('userLeft', (userId)=>{
             store.dispatch(removeUserFromOnlineUsers(userId));

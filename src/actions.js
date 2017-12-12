@@ -48,9 +48,10 @@ export function addUserToOnlineUsers(userId) {
 }
 
 export function removeUserFromOnlineUsers(userId) {
+    console.log('this is user id in actions: ', userId);
     return {
         type: "REMOVE_ONLINE_USER",
-        userId
+        userId: userId
     };
 
 }

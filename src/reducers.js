@@ -27,24 +27,45 @@ export default function(state = {}, action) {
     }
 
     if (action.type == 'PLACE_ONLINE_USERS') {
+
         state = Object.assign({}, state, {
             onlineUsers: action.onlineUsers
         });
     }
 
     if (action.type == 'ADD_ONLINE_USER') {
-        console.log('this is action add online user on reducer: ',action.userId);
-        state = Object.assign({}, state, {
-            onlineUsers:  state.onlineUsers.concat(action.userId)
-        });
+        if(!state.onlineUsers){
+            return state;
+        }
+        else{
+            console.log('this is action add online user on reducer: ',action.userId);
+
+
+
+
+
+
+            //MAKE A CHECK TO AVOID ADDING DUPLICATE
+            state = Object.assign({}, state, {
+                onlineUsers:  state.onlineUsers.concat(action.userId)
+            });
+        }
     }
 
     if (action.type == 'REMOVE_ONLINE_USER') {
-        console.log('this is action remove online user ',action.userId);
-        state = Object.assign({}, state, {
-            onlineUsers: state.onlineUsers.filter(user => user.userId != action.userId)
-        });
-    }
+        if(!state.onlineUsers){
+            return state;
+        }
+        else{
+            let users = state.onlineUsers.filter(user => {
+                return user.id != action.userId.userId;
+            });
 
+            state = Object.assign({}, state, {
+                onlineUsers: users
+            });
+        }
+    }
+    console.log('reducer state: ', state);
     return state;
 }

@@ -323,9 +323,21 @@ app.get('/connected/:socketId', (req,res, next)=>{
         });
         // }
     }
-    const ids = onlineUsers.map(
+    let ids = onlineUsers.map(
         user => user.userId
     );
+
+    ///REMOVE LOGGED IN USER FROM ONLINE USERS
+    if(ids.includes(req.session.user.id) == true){
+        console.log('ids includes req user');
+        var user=req.session.user.id;
+        ids = ids.filter(function(id) {
+            return id !== user;
+        });
+
+    }
+    //MAKE A QUERY TO CHECK IF IDS CONTAINS REQ SESSION USER, IF SO - REMOVE FROM IDS ARRAY
+    console.log('this is ids: ', ids);
     db.getUsersByIds(ids).then(users =>{
         console.log('this is users after db query on connected/socket: ',users);
         io.sockets.sockets[socketId].emit('onlineUsers', users);
@@ -370,15 +382,15 @@ io.on('connection', function(socket) {
         if(!onlineUsers){
             return null;
         }
-        //GET REQ SESSION USER
-        // determine if that user is no longer in your list at all.
-        var disconnectedUser = onlineUsers.find(user=> user.socketId ==socket.id);
-        var userId = disconnectedUser.userId;
-        onlineUsers = onlineUsers.filter(user=> user != disconnectedUser);
-        if (onlineUsers.every(onlineUsers => onlineUsers.userId != userId) ){
-            io.sockets.emit('userLeft', {
-                userId: userId
-            });
+        else{
+            var disconnectedUser = onlineUsers.find(user=> user.socketId ==socket.id);
+            var userId = disconnectedUser.userId;
+            onlineUsers = onlineUsers.filter(user=> user != disconnectedUser);
+            if (onlineUsers.every(onlineUsers => onlineUsers.userId != userId) ){
+                io.sockets.emit('userLeft', {
+                    userId: userId
+                });
+            }
         }
     });
 });

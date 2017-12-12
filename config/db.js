@@ -281,6 +281,9 @@ exports.getSpecificUserById= function(users) {
         `SELECT * FROM users WHERE id = ($1)`,
         [users]
     ).then((results)=>{
+        results.rows.forEach(elem => {
+            elem.imgurl = bucket.s3Url + elem.imgurl;
+        });
         return results.rows;
     }).catch((err)=>{
         console.log(err);
