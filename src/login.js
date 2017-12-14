@@ -44,7 +44,7 @@ export default class Login extends React.Component {
                 {this.state.error && <div>YOU MESSED UP</div>}
                 <input onChange={(e) => this.handleChange(e.target.name, e.target.value) } value={this.state.email} name= 'email' placeholder='email' type='text'/>
                 <input onChange={(e) => this.handleChange(e.target.name, e.target.value) } value={this.state.password} name= 'password' placeholder='password' type='password'/>
-                <button onClick={() => this.handleSubmit() }>Log In</button>
+                <button className= 'default-btn' onClick={() => this.handleSubmit() }>Log In</button>
             </div>
         )
     }

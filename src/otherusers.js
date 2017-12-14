@@ -51,8 +51,7 @@ return (<div className='section-wrapper'>
 <img src={this.state.imgurl} id='otherUsersImg'/>
 <FriendButton recipientId={this.props.params.id} sendFriendRequest={sendFriendRequest}/>
 <h5>These are some other friends of mine: </h5>
-<br></br>
-<ul>{otherUserFriendList}</ul>
+<ul id='friend-recommendations'>{otherUserFriendList}</ul>
 
 
 
