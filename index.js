@@ -380,7 +380,7 @@ app.get('/connected/:socketId', (req,res, next)=>{
 });
 
 
-app.post('/logOut', ((req,res)=>{
+app.get('/logOut', ((req,res)=>{
     req.session = null;
     res.redirect('/welcome/');
 

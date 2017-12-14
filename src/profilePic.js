@@ -30,6 +30,7 @@ export default class ProfilePic extends React.Component {
                 <div className='appHeaderWrapper'>
                     <img src='/hash.svg' onClick={this.props.showUploader} id='hamburger-menu'/>
                         <img src={this.props.imgurl} id='profilePic' alt={this.props.first}/>
+                        <Link id='about-link' to='/about'>About <br/>Track#Share</Link>
                         {/* <h6>{recipientId} just sent you a friend request</h6> */}
                         {/* <Link to="/friends"><h5 className='nav-item'>Friends???</h5></Link>
                         <Link to= "/online"><h5 className='nav-item'>Who's Online</h5></Link>

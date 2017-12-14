@@ -1,16 +1,14 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { Link } from 'react-router';
+import {connect} from 'react-redux';
+import {Link} from 'react-router';
 
 import socketConnections from './socket'
 
-
 const mapStateToProps = function(state) {
     return {
-        messagesArr:state.messagesArr && state.messagesArr
+        messagesArr: state.messagesArr && state.messagesArr
     };
 };
-
 
 export class Chat extends React.Component {
     constructor(props) {
@@ -19,48 +17,48 @@ export class Chat extends React.Component {
         };
         this.handleSubmit = this.handleSubmit.bind(this)
     }
-     handleSubmit(e){
+
+    handleSubmit(e) {
         var text = this.state.text
-        console.log('in handleSubmit', text);
         socketConnections().emit('chat', (text));
+        var textarea = document.getElementById('textarea')
+        textarea.value =''
+
 
     }
-    componentDidMount(){
 
-    }
+    componentDidMount() {}
 
     render() {
-        if(this.props.messagesArr){
-            const messages= this.props.messagesArr;
-            var messagesList = messages.map(message =>{
-                return <div className='section-wrapper'>
+        if (this.props.messagesArr) {
+            const messages = this.props.messagesArr;
+            var messagesList = messages.map(message => {
+                let url = `${message.text}`;
+                return <div className='chat-record'>
                     <h6>{message.first}, {message.last}</h6>
                     <img src={message.imgurl} className='profilePicFriendsPage'/>
-                <br></br>
-                    <h4> Says: {message.text}</h4>
+                    <br></br>
+                    <h6>Recommends # <span className='highlight-green'>{message.text}</span></h6>
+                        <a className='font-white' href={url}><div className= 'triangle'></div></a>
                 </div>
                 //
             });
+        } else {
+            return null
         }
-            else{
-                return null
-            }
 
+        return (<div className='section-wrapper'>
+            <h4 className='font-white chat-description-box'>Welcome to chat. Listening to something soooo good?<br></br> Paste a link and get your friends in the mood</h4>
+            <div className='chat-ui'>
 
-        return (
-            <div className='section-wrapper'>
-                <h4>This is Chat</h4>
-                <div className = 'chat-ui'>
+                <ul>{messagesList}</ul>
 
-                 <ul>{messagesList}</ul>
-                <textarea onChange={(e) => this.setState({text: e.target.value})}></textarea>
-                    <button
-                        onClick= {this.handleSubmit}
-                        >Send Message</button>
-                    </div>
-                </div>
+                <textarea id='textarea' value={this.state.value} placeholder='Paste link' onChange={(e) => this.setState({text: e.target.value})}></textarea>
+                <button className='nice-btn' onClick={this.handleSubmit}>Send Track</button>
 
-        )
+        </div>
+
+        </div>)
     }
 }
 

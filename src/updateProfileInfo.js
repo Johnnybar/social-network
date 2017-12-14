@@ -29,10 +29,10 @@ export default class UpdateProfileInfo extends React.Component {
         // const {updateBio} = this.props;
 
         return(
-            <div>
+            <div className='chat-ui'>
 
                 <textarea onChange={(e) => this.setState({bio: e.target.value}) }  name= 'bio' placeholder='Info' />
-                <button onClick={e => this.updateBio(e) }>Share your taste</button>
+                <button className= 'nice-btn' onClick={e => this.updateBio(e) }>Share your taste</button>
             </div>
         )
     }

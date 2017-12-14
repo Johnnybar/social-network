@@ -40,30 +40,33 @@ componentDidMount(){
             <div>
                 <div> {pending.first}, {pending.last}</div>
                 <Link to={`/users/${pending.id}`}><img src={pending.imgurl} className='profilePicFriendsPage'/></Link>
-                <button onClick= {(e)=> this.props.dispatch(acceptFriendOnFriends(pending.id))}>Accept Friend Request</button>
+                <button className = 'nice-btn' onClick= {(e)=> this.props.dispatch(acceptFriendOnFriends(pending.id))}>Accept Friend Request</button>
             </div>
 
         );
             const acceptedFriendsList = acceptedFriends.map(accepted =>
-                <div>
+                <div >
                     <div> {accepted.first}, {accepted.last} </div>
                     <Link to={`/users/${accepted.id}`}><img src={accepted.imgurl} className='profilePicFriendsPage'/></Link>
-                    <button onClick= {(e)=> this.props.dispatch(terminateFriendOnFriends(accepted.id))}>End Friendship</button>
+                    <button className = 'nice-btn' onClick= {(e)=> this.props.dispatch(terminateFriendOnFriends(accepted.id))}>End Friendship</button>
                 </div>
 
             );
 
         return (
             <div className='friends-wrapper'>
-                         <div>
+                    <div className='perspective-friend-box'>
+                         <div className='friend-box'>
                              <h2>Pending Friends</h2>
-                             <ul>{pendingFriendsList}</ul>
+                             <ul >{pendingFriendsList}</ul>
                          </div>
-
-                         <div>
+                    </div>
+                    <div className='perspective-friend-box'>
+                         <div className='friend-box'>
                              <h2>Accepted Friends</h2>
-                             <ul>{acceptedFriendsList}</ul>
+                             <ul >{acceptedFriendsList}</ul>
                          </div>
+                    </div>
                  </div>
         )
   }

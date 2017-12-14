@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from './axios';
-import FriendButton from './friendbutton'
+import FriendButton from './friendbutton';
+import { Link } from 'react-router';
 
 
 
@@ -39,7 +40,7 @@ componentDidMount() {
        otherUserFriendList = this.state.friends.map(friend =>
      <div>
         <h6>{friend.first}, {friend.last}</h6>
-        <img src={friend.imgurl} className='profilePicFriendsPage'/>
+        <a href={`/users/${friend.id}`}><img src={friend.imgurl} className='profilePicFriendsPage'/></a>
     </div>
     );
 }

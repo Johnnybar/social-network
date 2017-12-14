@@ -82,7 +82,7 @@ handleSubmit(){
 
       return (
           <div>
-              <button onClick= {(e)=> this.handleSubmit()}>{this.state.status}</button>
+              <button class='nice-btn' onClick= {(e)=> this.handleSubmit()}>{this.state.status}</button>
           </div>)
   }
 }

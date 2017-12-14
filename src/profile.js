@@ -14,9 +14,9 @@ render(){
     return(
         <div className='section-wrapper'>
 
-            <p>Hello, {first} {last}</p>
-            <p>Current Bio: {bio}</p>
-            <h6 id='music-bio' onClick={showBioUpdate}>Tell Us About The Music You Love ▼</h6>
+            <p>Hello, <span className='highlight-text'><i>{first} {last}</i></span></p>
+            <p><i>Current Bio: </i>{bio}</p>
+            <h5 id='music-bio' onClick={showBioUpdate}>Tell Us About The Music You Love ▼</h5>
 
         </div>
     )
