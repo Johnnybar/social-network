@@ -12,11 +12,11 @@ render(){
     const {first, last, bio, email, showBioUpdate} = this.props
 
     return(
-        <div>
-            <h1>Your Profile</h1>
+        <div className='section-wrapper'>
+
             <p>Hello, {first} {last}</p>
-            <p>Your profile description: {bio}</p>
-            <h6 onClick={showBioUpdate}>Change Your Description ▼</h6>
+            <p>Current Bio: {bio}</p>
+            <h6 id='music-bio' onClick={showBioUpdate}>Tell Us About The Music You Love ▼</h6>
 
         </div>
     )

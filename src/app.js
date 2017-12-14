@@ -1,7 +1,7 @@
 import React from 'react';
 import Logo from './logo'
 import ProfilePic from './profilePic'
-import axios from 'axios'
+import axios from './axios'
 import Logout from './logout'
 import UploadProfilePic from './uploadProfilePic'
 import Profile from './profile'
@@ -68,17 +68,19 @@ export default class App extends React.Component {
         return (
             <div>
                 <Logo />
+                {/* <Logout /> */}
                 <ProfilePic
                     imgurl={this.state.imgurl}
                     first={this.state.first}
                     last={this.state.last}
                     showUploader={() => this.setState({ uploaderIsVisible: !this.state.uploaderIsVisible })}
+
                 />
                 {this.state.uploaderIsVisible && <UploadProfilePic setImage={setImage}/>}
                 {children}
                 {/* <OtherUsers /> */}
                 {this.state.bioUpdateIsVisible && <UpdateProfileInfo setBio = {setBio} />}
-                <Logout />
+
             </div>
         )
     }

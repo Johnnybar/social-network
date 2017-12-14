@@ -1,19 +1,105 @@
+*{
+    font-family: Roboto;
+    margin-left: 0;
+}
 
+a:link{
+    text-decoration: none
+}
+a:visited{
+    color:black
+}
 
+#log-out-btn{
+margin: 10px
+}
+
+p {
+    margin-left: 10px
+}
+
+h2  {
+    margin-left: 10px
+}
+
+h3  {
+    margin-left: 10px
+}
+h4  {
+    margin-left: 10px
+}
+h5  {
+    margin-left: 10px
+}
+h6  {
+    margin-left: 10px
+}
 
 #logo{
     width:120px;
 
 }
+.logoPageTop{
+    background-color: transparent;
+        display: flex;
+        flex-direction: row;
+        align-items: end;
+        width: 15%;
+}
 
+#description-by-logo {
+    max-width: 100%;
+    margin-left: 70vw;
+
+
+}
 .appHeaderWrapper{
     display: flex;
     flex-direction: row;
+    background-color: skyblue;
+    width: 100vw;
+
 }
 
-#profilePic{
-    width: 100px;
+#hamburger-menu{
+background-color: darkseagreen;
+width: 4%;
 
+}
+
+.nav-item{
+    margin-left: 10px
+}
+
+.section-wrapper{
+    background-color: lightpink;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+}
+.friends-wrapper{
+    background-color: lightpink;
+    width: 100vw;
+    display: flex;
+    flex-direction: row;
+}
+#profilePic{
+    width: 5%;
+    height: 10%;
+    border-radius: 40px;
+    padding: 10px
+
+}
+
+#optionsMenu{
+    background-color: #EFEFF0;
+    width: 15vw;
+    position: absolute;
+}
+
+input[type='file'] {
+  color: transparent;
+  margin-top: 5px;
 }
 
 .profilePicFriendsPage{
@@ -25,5 +111,15 @@
 }
 
 #otherUsersImg{
-    width: 50%
+    width: 50%;
+}
+
+#music-bio{
+background-color: white;
+}
+
+.chat-ui {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
 }

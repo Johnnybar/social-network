@@ -15,14 +15,15 @@ export default class Welcome extends Component{
     render(){
         return(
             <div>
-                <h1>This is welcome</h1>
-                <Logout />
+                <img src='../trackshare.png' className='logoPageTop'/>
+                <div className='section-wrapper'>
+                {/* <Logout /> */}
                 {this.props.children}
                 <Link to="/">Register</Link>
                 <br/>
                 <Link to="/login">Login</Link>
 
-
+            </div>
             </div>
         )
     }

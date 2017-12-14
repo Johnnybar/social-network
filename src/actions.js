@@ -1,5 +1,5 @@
 import React from 'react';
-import axios from 'axios';
+import axios from './axios';
 
 export const allFriendRequests = function() {
     return axios.get('/getFriendsInfoToFriends').then((friends)=>{
@@ -48,7 +48,6 @@ export function addUserToOnlineUsers(userId) {
 }
 
 export function removeUserFromOnlineUsers(userId) {
-    console.log('this is user id in actions: ', userId);
     return {
         type: "REMOVE_ONLINE_USER",
         userId: userId
@@ -65,12 +64,19 @@ export function getMessages(messagesArr) {
 
 }
 
-
 export function addSingleMessage(messageWithUser) {
-    console.log('this is messageWithUser in actions: ', messageWithUser);
     return {
         type: "ADD_SINGLE_MESSAGE",
         messageWithUser
+
+    };
+
+}
+
+export function alertAboutFriendRequest(id) {
+    return {
+        type: "ALERT_NEW_REQUEST",
+        id
 
     };
 

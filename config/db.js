@@ -289,3 +289,41 @@ exports.getSpecificUserById= function(users) {
         console.log(err);
     });
 };
+
+///////////GET OTHER USERS FRIENDS////////////
+
+exports.getOtherUsersFriends = (id) => {
+    const TERMINATE = 'Terminate Friendship';
+
+    return db.query(
+        `SELECT users.id, first, last, imgurl, status
+        FROM friend_statuses
+        JOIN users
+        ON (status = '${TERMINATE}' AND recipient_id = $1 AND sender_id = users.id)
+        OR (status = '${TERMINATE}' AND sender_id = $1 AND recipient_id = users.id)`,
+        [id]
+
+    ).then((results) => {
+        results.rows.forEach(elem => {
+            elem.imgurl = bucket.s3Url + elem.imgurl;
+        });
+        return results.rows;
+    }).catch(err => {
+        console.log(err);
+    });
+
+};
+
+////CHECK FRIENDSHIP STATUS//////////////
+
+exports.checkForFriendship = function(myUser, otherUser, status){
+    return db.query(
+        `SELECT id FROM friend_statuses WHERE sender_id =($1) AND recipient_id=($2) AND status =($3)
+        OR sender_id =($2) AND recipient_id=($1) AND status =($3)`,
+        [myUser, otherUser, status]
+    ).then((results) => {
+        return results.rows;
+    }).catch((err) => {
+        console.log('errror in checkForFriendship query ',err);
+    });
+};

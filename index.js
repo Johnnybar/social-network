@@ -11,6 +11,8 @@ const uidSafe = require('uid-safe');
 const path = require('path');
 var imgUrl = 'emptyProfile.gif';
 var bio = 'This is your default description';
+var csurf = require('csurf');
+
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
 let onlineUsers = [];
@@ -56,6 +58,11 @@ app.use(bodyParser.json());
 
 app.use(express.static('./public'));
 
+app.use(csurf());
+app.use(function(req, res, next){
+    res.cookie('mytoken', req.csrfToken());
+    next();
+});
 
 
 app.get('/welcome/', function(req, res){
@@ -177,11 +184,37 @@ app.get('/otherUsersJson', function(req,res){
     console.log('this is the logged in user: ', req.session.user.id);
     db.getUserInp(id)
         .then((data)=>{
+            console.log('This is other user data: ', data);
             res.json({ data,
                 success:true });
         }).catch(function(err){
             console.log(err);
         });
+});
+
+app.get('/getOtherUsersFriends/:id', function(req,res){
+    var otherUser= req.params.id;
+    var myUser = req.session.user.id;
+
+    db.checkForFriendship(myUser, otherUser, 'Terminate Friendship')
+        .then((result)=>{
+            console.log('this is result: ', result);
+            if (result.length == 0){
+                res.json({success:false});
+            }
+            else{
+                db.getOtherUsersFriends(otherUser)
+                    .then((results)=>{
+                        res.json(results);
+                    }).catch(function(err){
+                        console.log(err);
+                    });
+
+            }
+        }).catch(function(err){
+            console.log(err);
+        });
+    //LOOK IN FRIEND STATUSES WHERE ID IS otherUser AND STATUS IS TERMINATE FRIENDSHIP
 });
 
 app.get('/getFriendshipStatus/:recipientId', function(req,res){
@@ -329,7 +362,6 @@ app.get('/connected/:socketId', (req,res, next)=>{
 
     ///REMOVE LOGGED IN USER FROM ONLINE USERS
     if(ids.includes(req.session.user.id) == true){
-        console.log('ids includes req user');
         var user=req.session.user.id;
         ids = ids.filter(function(id) {
             return id !== user;
@@ -337,10 +369,10 @@ app.get('/connected/:socketId', (req,res, next)=>{
 
     }
     //MAKE A QUERY TO CHECK IF IDS CONTAINS REQ SESSION USER, IF SO - REMOVE FROM IDS ARRAY
-    console.log('this is ids: ', ids);
     db.getUsersByIds(ids).then(users =>{
-        console.log('this is users after db query on connected/socket: ',users);
         io.sockets.sockets[socketId].emit('onlineUsers', users);
+        console.log('this is messagesarr: ', messagesArr);
+
         io.sockets.sockets[socketId].emit('chatMessages', messagesArr);
     }).catch((err)=>{
         console.log('there was an error ', err);
@@ -367,7 +399,8 @@ server.listen(8080, function() {
     console.log("I'm listening.");
 });
 let id;
-const messagesArr = [];
+let messagesArr = [];
+
 io.on('connection', function(socket) {
     socket.on('chat',function(text){
         for (let i = 0; i < onlineUsers.length; i++) {
@@ -383,19 +416,17 @@ io.on('connection', function(socket) {
                     imgurl: results[0].imgurl,
                     text:text
                 };
+
                 messagesArr.push(messageWithUser);
-                // console.log('this is messages arr: ',messagesArr);
-                io.sockets.emit('chatMessage', {
+                ///REMOVED CURLY BRACKETS AROUND messageWithUser IN INDEXJS
+                io.sockets.emit('chatMessage',
                     messageWithUser
-                });
+                );
             });
 
 
-        //RUN DB QUERY TO GET USER INFO USING ID
-        //PUT RESULTS WITH TEXT MESSAGE INTO messagesArr
-        //EMIT CHATMESSAGES WITH messagesArr
-
     });
+
 
     console.log(`socket with the id ${socket.id} is now connected`);
 

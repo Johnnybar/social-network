@@ -1,9 +1,9 @@
 import React from 'react';
 import {store} from './start';
 import * as io from 'socket.io-client';
-import axios from 'axios';
+import axios from './axios';
 let onlineUsers=[];
-import {placeOnlineUsers, addUserToOnlineUsers, removeUserFromOnlineUsers, getMessages, addSingleMessage} from './actions';
+import {placeOnlineUsers, addUserToOnlineUsers, removeUserFromOnlineUsers, getMessages, addSingleMessage, alertAboutFriendRequest} from './actions';
 
 
 let socket;
@@ -27,23 +27,18 @@ export default function socketConnections(){
             console.log('this is userLeft: ', userId);
         });
         socket.on('chatMessages', (messagesArr)=>{
-            console.log('this is messagesArr in socketjs: ', messagesArr);
             store.dispatch(getMessages(messagesArr));
+            console.log('this is the messagesArr: ', messagesArr);
         });
 
         socket.on('chatMessage', (messageWithUser)=>{
-            console.log('this is messageWithUser in socketjs: ', messageWithUser);
             store.dispatch(addSingleMessage(messageWithUser));
+            console.log("wtf");
+        });
+        socket.on('alertAboutFriendRequest', (id)=>{
+            console.log('alert about friend request!');
+            store.dispatch(alertAboutFriendRequest(id));
         });
     }
     return socket;
 }
-
-
-
-
-
-
-// 	*axios req to /connected/+socketId
-// 	*socket.on for onlineUsers, userJoined, userLeft
-// 	*all event handlers should dispatch actions

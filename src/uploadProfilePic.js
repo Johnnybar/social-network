@@ -1,5 +1,6 @@
 import React from 'react';
-import axios from 'axios'
+import axios from './axios';
+import { Link } from 'react-router';
 
 
 
@@ -22,9 +23,17 @@ export default class UploadProfilePic extends React.Component {
 
     render() {
         return (
-            <div>
-                <h4><i>Change Profile Picture</i></h4>
-                <input type = "file" onChange = {(e)=> this.doUpload(e)} />
+            <div id='optionsMenu'>
+
+                <h6>Change Profile Pic <input type = "file" onChange = {(e)=> this.doUpload(e)} /></h6>
+                <Link to="/friends"><h6 className='nav-item'>Friends???</h6></Link>
+                <Link to= "/online"><h6 className='nav-item'>Who's Online</h6></Link>
+                <Link to="/chat"><h6 className='nav-item'>Chat Room</h6></Link>
+                <form action='/logOut' method='post'>
+               <button id='log-out-btn' type='submit'>
+                   Log Out
+               </button>
+               </form>
 
                 {/* <img src = { this.state.setImage }  /> */}
                 {/* <button onClick={() => this.handleSubmit() }>Submit</button> */}

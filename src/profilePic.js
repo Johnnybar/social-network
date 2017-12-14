@@ -1,5 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router';
+import { connect } from 'react-redux';
+
+
+const mapStateToProps = function(state) {
+    return {
+        // id:state.id && state.id
+    };
+};
 
 export default class ProfilePic extends React.Component {
     constructor(props) {
@@ -15,15 +23,18 @@ export default class ProfilePic extends React.Component {
 }
 
         render(){
+            if(this.props.id){
+                var id= this.props.id;
+            }
             return(
-                <div class='appHeaderWrapper'>
-                    <h1>This is app</h1>
-                    <div>
-                        <img onClick={this.props.showUploader} src={this.props.imgurl} id='profilePic' alt={this.props.first}/>
-                        <Link to="/friends"><h5>Your Friend Lists</h5></Link>
-                        <Link to= "/online"><h5>Online Friends</h5></Link>
-                        <Link to="/chat"><h5>Chat</h5></Link>
-                    </div>
+                <div className='appHeaderWrapper'>
+                    <img src='/hash.svg' onClick={this.props.showUploader} id='hamburger-menu'/>
+                        <img src={this.props.imgurl} id='profilePic' alt={this.props.first}/>
+                        {/* <h6>{recipientId} just sent you a friend request</h6> */}
+                        {/* <Link to="/friends"><h5 className='nav-item'>Friends???</h5></Link>
+                        <Link to= "/online"><h5 className='nav-item'>Who's Online</h5></Link>
+                        <Link to="/chat"><h5 className='nav-item'>Chat Room</h5></Link> */}
+
                     {/* NEED TO ADD LAST TO ALT */}
 
                 </div>

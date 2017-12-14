@@ -1,5 +1,5 @@
 import React from 'react';
-import axios from 'axios';
+import axios from './axios';
 
 export default class UpdateProfileInfo extends React.Component {
     constructor(props) {
@@ -31,8 +31,8 @@ export default class UpdateProfileInfo extends React.Component {
         return(
             <div>
 
-                <textarea onChange={(e) => this.setState({bio: e.target.value}) }  name= 'bio' placeholder='New Bio' />
-                <button onClick={e => this.updateBio(e) }>Update bio</button>
+                <textarea onChange={(e) => this.setState({bio: e.target.value}) }  name= 'bio' placeholder='Info' />
+                <button onClick={e => this.updateBio(e) }>Share your taste</button>
             </div>
         )
     }

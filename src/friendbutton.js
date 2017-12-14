@@ -1,15 +1,17 @@
 import React from 'react';
-import axios from 'axios'
+import axios from './axios'
+import socketConnections from './socket'
+import {store} from './start';
+import {alertOnFriendRequest} from './actions'
 
 
 export default class FriendButton extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {    }
+    this.state = { }
   }
 
 componentDidMount(){
-
 var recipientId = this.props.recipientId;
     axios.get('/getFriendshipStatus/'+ recipientId).then(({data}) => {
       if (data.success){
@@ -24,11 +26,16 @@ var recipientId = this.props.recipientId;
           this.setState({error: true});
       }
     })
+
 }
 
 handleSubmit(){
     var recipientId = this.props.recipientId;
     if (this.state.status == "Send Friend Request") {
+        //EMIT notification with recipient id here
+
+        // socketConnections().emit('friendRequestSent', recipientId);
+
            this.state.status = "Cancel Friend Request";
            axios.post('/changeFriendshipStatus/' + recipientId, this.state)
            .then((resp)=>{
@@ -56,6 +63,7 @@ handleSubmit(){
            })
        }
        else if (this.state.status == "Terminate Friendship"){
+           console.log('This is a user we did not request yet');
             this.state.status = "Send Friend Request";
            axios.post('/deleteFriendRequest/'+recipientId, recipientId).then(resp=>{
                if (resp.data.success){

@@ -41,7 +41,6 @@ export default function(state = defaultState, action) {
             return state;
         }
         else{
-            console.log('this is action add online user on reducer: ',action.userId);
 
             //MAKE A CHECK TO AVOID ADDING DUPLICATE
             state = Object.assign({}, state, {
@@ -66,7 +65,7 @@ export default function(state = defaultState, action) {
     }
 
     if (action.type == 'GET_MESSAGES') {
-        console.log('in get messages reducer', action);
+
         state = Object.assign({}, state, {
             messagesArr: action.messagesArr
 
@@ -74,8 +73,18 @@ export default function(state = defaultState, action) {
     }
 
     if (action.type == 'ADD_SINGLE_MESSAGE') {
+        if(state.messagesArr.length>10){
+            state.messagesArr.shift();
+        }
         state = Object.assign({}, state, {
+
             messagesArr: [ ...state.messagesArr, action.messageWithUser ]
+        });
+    }
+
+    if (action.type == 'ALERT_NEW_REQUEST') {
+        state = Object.assign({}, state, {
+            id: action.id
         });
     }
 

@@ -31,34 +31,33 @@ export class Chat extends React.Component {
 
     render() {
         if(this.props.messagesArr){
-
-            const messages= this.props.messagesArr
-            console.log('this is props messagesArr: ', messages);
-            if (this.props.messagesArr){
-            var messagesList = messages.map(message =>
-                <div>
-                    <h6>{message.messageWithUser.first}, {message.messageWithUser.last}</h6>
-                    <img src={message.messageWithUser.imgurl} className='profilePicFriendsPage'/>
+            const messages= this.props.messagesArr;
+            var messagesList = messages.map(message =>{
+                return <div className='section-wrapper'>
+                    <h6>{message.first}, {message.last}</h6>
+                    <img src={message.imgurl} className='profilePicFriendsPage'/>
                 <br></br>
-                    <h4> Says: {message.messageWithUser.text}</h4>
+                    <h4> Says: {message.text}</h4>
                 </div>
                 //
-            );
+            });
         }
-    }
             else{
                 return null
             }
 
 
         return (
-            <div>
+            <div className='section-wrapper'>
                 <h4>This is Chat</h4>
+                <div className = 'chat-ui'>
+
                  <ul>{messagesList}</ul>
                 <textarea onChange={(e) => this.setState({text: e.target.value})}></textarea>
                     <button
                         onClick= {this.handleSubmit}
                         >Send Message</button>
+                    </div>
                 </div>
 
         )

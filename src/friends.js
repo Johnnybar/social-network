@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import axios from 'axios';
+import axios from './axios';
 import {allFriendRequests} from './actions';
 import {acceptFriendOnFriends} from './actions';
 import {terminateFriendOnFriends} from './actions'
@@ -38,7 +38,7 @@ componentDidMount(){
       }
           const pendingFriendsList = pendingFriends.map(pending =>
             <div>
-                <div> Pending {pending.first}, {pending.last}</div>
+                <div> {pending.first}, {pending.last}</div>
                 <Link to={`/users/${pending.id}`}><img src={pending.imgurl} className='profilePicFriendsPage'/></Link>
                 <button onClick= {(e)=> this.props.dispatch(acceptFriendOnFriends(pending.id))}>Accept Friend Request</button>
             </div>
@@ -46,7 +46,7 @@ componentDidMount(){
         );
             const acceptedFriendsList = acceptedFriends.map(accepted =>
                 <div>
-                    <div> Accepted {accepted.first}, {accepted.last} </div>
+                    <div> {accepted.first}, {accepted.last} </div>
                     <Link to={`/users/${accepted.id}`}><img src={accepted.imgurl} className='profilePicFriendsPage'/></Link>
                     <button onClick= {(e)=> this.props.dispatch(terminateFriendOnFriends(accepted.id))}>End Friendship</button>
                 </div>
@@ -54,7 +54,7 @@ componentDidMount(){
             );
 
         return (
-            <div>
+            <div className='friends-wrapper'>
                          <div>
                              <h2>Pending Friends</h2>
                              <ul>{pendingFriendsList}</ul>

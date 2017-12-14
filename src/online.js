@@ -25,6 +25,7 @@ componentDidMount(){
       }
 
           const onlineUsersList = onlineUsers.map(online =>
+
           <div>
                 <div>  {online.first}, {online.last}</div>
                 <Link to={`/users/${online.id}`}><img src={online.imgurl} className='profilePicFriendsPage' /></Link>
@@ -33,7 +34,7 @@ componentDidMount(){
 
         );
         return (
-            <div>
+            <div className='section-wrapper'>
                          <div>
                              <h2>Online Users</h2>
                              <ul>{onlineUsersList}</ul>
