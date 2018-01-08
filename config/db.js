@@ -113,14 +113,14 @@ exports.updateProfile = function(imgurl, id) {
 /////////////////////////////////////////UPDATE USER PROFILE///////////////////////////////
 
 exports.updateBio = function(bio, id) {
-    console.log('running the db query to update bio ', bio, id);
+    // console.log('running the db query to update bio ', bio, id);
     return db.query(
         `UPDATE users
         SET bio =($1)
         WHERE id =($2)`,
         [bio, id]
     ).then(() => {
-        console.log('in the db query to update bio');
+        // console.log('in the db query to update bio');
 
     }).catch((err) => {
         return err;
@@ -161,7 +161,7 @@ exports.deleteFriendRequest = function(sender_id, recipient_id){
         'DELETE from friend_statuses WHERE sender_id = $1 and recipient_id= $2',
         [sender_id, recipient_id]
     ).then(() => {
-        console.log('deleted request');
+        // console.log('deleted request');
     }).catch((err) => {
         console.log(err);
     });

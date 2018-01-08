@@ -26,7 +26,7 @@ exports.upload = function(file){
         s3Request.on('response', s3Response => {
             const wasSuccessful = s3Response.statusCode == 200;
             if(wasSuccessful){
-                console.log('what a success');
+                // console.log('what a success');
                 resolve();
             }
             else{

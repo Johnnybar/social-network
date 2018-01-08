@@ -24,19 +24,19 @@ export default function socketConnections(){
         });
         socket.on('userLeft', (userId)=>{
             store.dispatch(removeUserFromOnlineUsers(userId));
-            console.log('this is userLeft: ', userId);
+            // console.log('this is userLeft: ', userId);
         });
         socket.on('chatMessages', (messagesArr)=>{
             store.dispatch(getMessages(messagesArr));
-            console.log('this is the messagesArr: ', messagesArr);
+            // console.log('this is the messagesArr: ', messagesArr);
         });
 
         socket.on('chatMessage', (messageWithUser)=>{
             store.dispatch(addSingleMessage(messageWithUser));
-            console.log("wtf");
+            // console.log("wtf");
         });
         socket.on('alertAboutFriendRequest', (id)=>{
-            console.log('alert about friend request!');
+            // console.log('alert about friend request!');
             store.dispatch(alertAboutFriendRequest(id));
         });
     }

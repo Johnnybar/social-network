@@ -26,7 +26,7 @@ export default class App extends React.Component {
 }
 
     sendFriendRequest(){
-        console.log('clicked inside sendFriendRequest');
+        // console.log('clicked inside sendFriendRequest');
         // this.setState({status: 'Friend Request Sent'});
 
 
@@ -35,7 +35,7 @@ export default class App extends React.Component {
     componentDidMount() {
         socketConnections()
         axios.get('/user').then(({ data }) => {
-            console.log('this is the logged in user data: ',data);
+            // console.log('this is the logged in user data: ',data);
             this.setState(data);
         })
 

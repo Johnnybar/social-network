@@ -88,6 +88,6 @@ export default function(state = defaultState, action) {
         });
     }
 
-    console.log('reducer state: ', state);
+    // console.log('reducer state: ', state);
     return state;
 }

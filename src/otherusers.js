@@ -21,9 +21,9 @@ componentDidMount() {
 })
 //RUN A CHECK BEFORE RUNNING THIS TO SEE IF USER VIEWED IS A FRIEND
   axios.get('/getOtherUsersFriends/'+id).then((result)=>{
-      console.log('this is result: ', result);
+      // console.log('this is result: ', result);
      if(result.data.success == false){
-         console.log('this was null');
+         // console.log('this was null');
      }
      else{
          this.setState({

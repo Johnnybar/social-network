@@ -17,7 +17,7 @@ export default class Login extends React.Component {
     }
     handleSubmit() {
 
-        console.log('running handleSubmit on login', this.state);
+        // console.log('running handleSubmit on login', this.state);
 
         const { email, password} = this.state;
         const data = {email, password}
@@ -28,7 +28,7 @@ export default class Login extends React.Component {
                 location.replace('/');
 
             } else {
-                console.log('there was an error in axios post');
+                // console.log('there was an error in axios post');
                 this.setState({
                     error: true,
                     email:'',

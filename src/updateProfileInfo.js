@@ -15,7 +15,7 @@ export default class UpdateProfileInfo extends React.Component {
                 this.props.setBio(resp.data.bio);
 
             } else {
-                console.log('there was an error in update bio');
+                // console.log('there was an error in update bio');
                 this.setState({
                     error: true
                 })

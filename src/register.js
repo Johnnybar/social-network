@@ -20,8 +20,8 @@ export default class Register extends React.Component {
 
     handleSubmit(e) {
 
-        console.log(e);
-        console.log('running handleSubmit', this.state);
+        // console.log(e);
+        // console.log('running handleSubmit', this.state);
 
         const {first, last, email, password} = this.state;
         const data = {first, last, email, password}
@@ -29,11 +29,11 @@ export default class Register extends React.Component {
         axios.post('/register', data)
         .then(resp => {
             if (resp.data.success) {
-                console.log('success i guess');
+                // console.log('success i guess');
                 location.replace('/');
 
             } else {
-                console.log('there was an error');
+                // console.log('there was an error');
                 this.setState({
                     error: true
                 })
