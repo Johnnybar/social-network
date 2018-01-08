@@ -395,9 +395,7 @@ app.get('*', function(req, res){
 
 });
 
-server.listen(8080, function() {
-    console.log("I'm listening.");
-});
+server.listen(process.env.PORT || 8080, ()=> (console.log('listening on port 8080')));
 let id;
 let messagesArr = [];
 
