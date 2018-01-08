@@ -13,16 +13,18 @@ const mapStateToProps = function(state) {
 export class Chat extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
+        this.state = { 
         };
         this.handleSubmit = this.handleSubmit.bind(this)
     }
 
     handleSubmit(e) {
-        var text = this.state.text
-        socketConnections().emit('chat', (text));
-        var textarea = document.getElementById('textarea')
-        textarea.value =''
+        // var text = this.state.text
+        // socketConnections().emit('chat', (text));
+        // var textarea = document.getElementById('textarea')
+        // textarea.value =''
+        console.log('no chatssss');
+        alert("Chat messaging is disabled in demo mode", "ok")
 
 
     }
