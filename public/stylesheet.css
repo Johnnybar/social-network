@@ -2,7 +2,7 @@
 
 *{
     font-family: Roboto;
-    margin-left: 1;
+    margin-left: 1px;
 }
 
 .font-white{
@@ -51,7 +51,7 @@ h6  {
 }
 
 input{
-    margin-left: 5px
+    margin-left: 5px;
 }
 
 button {
@@ -63,7 +63,6 @@ button {
     font-size: 10px;
     margin-top: 20px;
     color: black;
-
     background-color: skyblue;
 }
 
@@ -74,13 +73,34 @@ button {
 
 
 #friend-recommendations{
-    display: flex
+    display: flex;
+    justify-content: center;
 }
 
 #logo{
     width:120px;
+    margin-bottom: 10px
+    padding:2px
 
 }
+@-webkit-keyframes shadow {
+    0% {
+
+
+    }
+
+    100% {
+        box-shadow: 2px 2px 5px #888888;
+        border-radius: 45px;
+        padding: 2px
+    }
+}
+
+#logo:hover{
+    animation: shadow 0.5s ease-out;
+    animation-fill-mode: forwards;
+}
+
 .logoPageTop{
     background-color: transparent;
         display: flex;
@@ -111,16 +131,23 @@ button {
 }
 
 #about-link{
-    margin-left: 75%;
+    margin-left: 60%;
     font-size: 15px;
     font-weight: bold;
     color: white;
     z-index: 1;
 }
 
+#about-link:hover{
+    animation: shadow 0.5s ease-out;
+    animation-fill-mode: forwards;
+}
+
 .nav-item{
     margin-left: 10px;
-    margin-bottom: 0px;
+    margin-bottom: 5px;
+    animation: grow 0.5s ease-in-out;
+
 }
 
 .section-wrapper{
@@ -146,26 +173,31 @@ button {
 
 }
 #profilePic{
-    width: 5%;
+    width: 25%;
     height: 10%;
     border-radius: 40px;
-    padding: 10px
+    padding: 10px;
+}
 
+#profilePic:hover{
+animation: shadow 0.5s ease-out;
+animation-fill-mode: forwards;
 }
 
 @-webkit-keyframes grow {
     0% {
-        max-width: 1vw;
+        /*opacity: 0;
+	    overflow: hidden;*/
+        transform: translate(-100px, 0px);
     }
 
     100% {
-        max-width: 100%;
-        height: auto
     }
 }
 
+
+
 #optionsMenu{
-    animation:grow 1s ease-in;
     background-color: #EFEFF0;
     width: 15vw;
     position: absolute;
@@ -173,13 +205,16 @@ button {
     flex-direction: column;
     z-index: 1;
     font-size:17px;
-
+    animation: grow 0.2s ease-out;
+    margin-left: 1px
 }
 
 input[type='file'] {
   color: transparent;
   margin-top: 5px;
-  margin-left: 10px
+  margin-left: 10px;
+
+
 }
 
 .profilePicFriendsPage{
@@ -202,15 +237,29 @@ width: 30vw;
 background-color: skyblue;
 
 }
+@-webkit-keyframes fall {
+    0% {
+        transform: translate(0px, 100px)
+    }
+
+    100% {
+    }
+}
 
 .chat-ui {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     margin-left: 15px;
-    animation: grow 2s ease-in
 }
 
+.bio-ui {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-left: 15px;
+    animation: fall 0.2s ease-out
+}
 .chat-record {
     margin-top: 10px;
     margin-left: -40px;
@@ -223,6 +272,7 @@ background-color: skyblue;
     background: -webkit-linear-gradient(-45deg, #90bb90 1%, #89ceea 22%, #feb7c2 49%);
     border-top: 30px solid transparent;
     border-bottom: 30px solid transparent;
+    animation: grow 0.2s ease-out
 }
 
 .triangle{
@@ -243,13 +293,23 @@ background-color: skyblue;
     font-style: italic;
 }
 
+@-webkit-keyframes skew {
+    0% {
+        transform: rotatey(-60deg);
+    }
 
+    100% {
+        transform: rotatey(-10deg);
+
+    }
+}
 
 .perspective-friend-box{
     perspective: 370px;
     margin-right:70px
 }
 .friend-box{
+    animation: skew 1s ease-in-out;
     display: flex;
     flex-direction: row-reverse;
     transform: rotatey(-10deg);
@@ -284,6 +344,7 @@ background-color: skyblue;
     /*text-shadow: 0px -1px 0px rgba(0,0,0,.5);*/
 
 }
+
 
 textarea{
     width: 30vw;
