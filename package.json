@@ -1,5 +1,5 @@
 {
-  "name": "spiced-social-network",
+  "name": "track-share",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -9,7 +9,8 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "engines": {
-    "node": "6.10.3"
+    "node": "9.3.0",
+    "npm": "5.6.0"
   },
   "dependencies": {
     "axios": "^0.15.3",
