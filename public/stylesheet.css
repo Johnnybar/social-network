@@ -173,8 +173,8 @@ button {
 
 }
 #profilePic{
-    width: 25%;
-    height: 10%;
+    width: 4em;
+    height: 4em;
     border-radius: 40px;
     padding: 10px;
 }
