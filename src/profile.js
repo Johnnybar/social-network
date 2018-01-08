@@ -1,5 +1,5 @@
 import React from 'react';
-import UpdateProfileInfo from './UpdateProfileInfo'
+import UpdateProfileInfo from './updateProfileInfo'
 
 export default class Profile extends React.Component {
     constructor(props) {
