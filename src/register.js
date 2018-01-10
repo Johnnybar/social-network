@@ -43,7 +43,7 @@ export default class Register extends React.Component {
 
     render() {
         return (
-            <div>
+            <div className='register-form'>
                 {this.state.error && <div>YOU MESSED UP</div>}
                 <input onChange={(e) => this.handleChange(e.target.name, e.target.value) } value={this.state.first} name= 'first' placeholder='first' type='text'/>
                 <input onChange={(e) => this.handleChange(e.target.name, e.target.value) } value={this.state.last} name= 'last' placeholder='last' type='text'/>

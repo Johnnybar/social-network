@@ -5,9 +5,14 @@ export default class UpdateProfileInfo extends React.Component {
     constructor(props) {
         super(props);
         this.state = {}
+        this.collapse = this.collapse.bind(this)
     }
 
-
+    collapse(){
+        console.log(this.state);
+        this.setState({bioUpdateIsVisible: false});
+        console.log(this.state);
+    };
     updateBio(){
         axios.post('/updateBio', this.state)
         .then(resp => {
@@ -27,11 +32,10 @@ export default class UpdateProfileInfo extends React.Component {
 
     render(){
         // const {updateBio} = this.props;
-
+        // collapse: this.collapse
         return(
-            <div className='chat-ui'>
-
-                <textarea onChange={(e) => this.setState({bio: e.target.value}) }  name= 'bio' placeholder='Info' />
+            <div className='update-bio-ui' >
+                <textarea onChange={(e) => this.setState({bio: e.target.value}) } name= 'bio' placeholder='Info' />
                 <button className= 'nice-btn' onClick={e => this.updateBio(e) }>Share your taste</button>
             </div>
         )

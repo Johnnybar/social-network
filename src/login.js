@@ -34,17 +34,30 @@ export default class Login extends React.Component {
                     email:'',
                     password:''
                 })
+
             }
+        }).catch((err)=>{
+            // console.log('there was an error in axios post');
+            this.setState({
+                error: true,
+                email:'',
+                password:''
+            })
         })
     }
 
     render() {
+    //     if (this.state.error){
+    //         console.log('WHASS');
+    //     var errorMsg = <span className="error-msg">Error</span>;
+    // }
         return (
             <div>
-                {this.state.error && <div>YOU MESSED UP</div>}
                 <input onChange={(e) => this.handleChange(e.target.name, e.target.value) } value={this.state.email} name= 'email' placeholder='email' type='text'/>
                 <input onChange={(e) => this.handleChange(e.target.name, e.target.value) } value={this.state.password} name= 'password' placeholder='password' type='password'/>
                 <button className= 'default-btn' onClick={() => this.handleSubmit() }>Log In</button>
+                {this.state.error && <div className='error'>Something's off... <br/> Did you fill out all fields and type the correct name/password?</div>}
+                {/* {errorMsg} */}
             </div>
         )
     }

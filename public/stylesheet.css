@@ -3,6 +3,7 @@
 *{
     font-family: Roboto;
     margin-left: 1px;
+    font-size: 12px;
 }
 
 .font-white{
@@ -10,9 +11,10 @@
 }
 
 .chat-description-box{
-    width: 40vw;
+    font-style: italic;
+    width: 30vw;
     padding: 5px;
-    background-color: black
+    background-color: #402f29
 }
 
 a{
@@ -34,7 +36,7 @@ p {
 }
 
 h2  {
-    margin-left: 10px
+    margin-left: 20px
 }
 
 h3  {
@@ -96,10 +98,7 @@ button {
     }
 }
 
-#logo:hover{
-    animation: shadow 0.5s ease-out;
-    animation-fill-mode: forwards;
-}
+
 
 .logoPageTop{
     background-color: transparent;
@@ -125,13 +124,13 @@ button {
 }
 
 #hamburger-menu{
-    background-color: darkseagreen;
+    background-color: transparent;
     width: 4%;
     height: 60px;
 }
 
 #about-link{
-    margin-left: 80%;
+    margin-left: 60%;
     font-size: 15px;
     font-weight: bold;
     color: white;
@@ -147,23 +146,26 @@ button {
     margin-left: 10px;
     margin-bottom: 5px;
     animation: grow 0.5s ease-in-out;
+    font-style: italic;
 
 }
 
+
+
 .section-wrapper{
-    background-color: lightpink;
+    background-color: #ececec;
     width: 98vw;
     display: flex;
     flex-direction: column;
 }
 .friends-wrapper{
-    background-color: lightpink;
+    background-color: #ececec;
     width: 98vw;
     display: flex;
     flex-direction: row;
 }
 .welcome-wrapper{
-    background-color: lightpink;
+    background-color: #ececec;
     width: 98vw;
     height: 10vh;
     display: flex;
@@ -174,7 +176,7 @@ button {
 }
 #profilePic{
     width: 70px;
-    height: 90px;
+    height: 70px;
     border-radius: 40px;
     padding: 10px;
 }
@@ -198,7 +200,7 @@ animation-fill-mode: forwards;
 
 
 #optionsMenu{
-    background-color: #EFEFF0;
+    background-color: #dbf0f9;
     width: 15vw;
     position: absolute;
     display: flex;
@@ -206,16 +208,18 @@ animation-fill-mode: forwards;
     z-index: 1;
     font-size:17px;
     animation: grow 0.2s ease-out;
-    margin-left: 1px
+    margin-left: 1px;
+    border-right: 1px solid grey
 }
 
 input[type='file'] {
   color: transparent;
   margin-top: 5px;
-  margin-left: 10px;
+  /* margin-left: 10px; */
 
 
 }
+
 
 .profilePicFriendsPage{
     width: 100px;
@@ -236,6 +240,7 @@ background-color: white;
 width: 30vw;
 background-color: skyblue;
 
+
 }
 @-webkit-keyframes fall {
     0% {
@@ -251,6 +256,14 @@ background-color: skyblue;
     flex-direction: column;
     align-items: flex-start;
     margin-left: 15px;
+}
+
+.update-bio-ui{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-left: 15px;
+    animation: fall 0.5s ease-in
 }
 
 .bio-ui {
@@ -315,7 +328,7 @@ background-color: skyblue;
     transform: rotatey(-10deg);
     border: 1px solid black;
     margin-left: 50px;
-    box-shadow: 8px -6px 0px 2px lightpink;
+    box-shadow: 8px -6px 0px 2px #ececec;
 }
 
 .nice-btn{
@@ -350,4 +363,108 @@ textarea{
     width: 30vw;
     height: 10vh;
     margin-top: 10px
+}
+
+.error{
+    font-size: 12px;
+    color: #FEB7C2;
+    font-style: italic;
+    background-color: black;
+}
+
+@media only screen and (max-width: 568px) {
+
+#music-bio {
+    width: 50vw;
+}
+
+.register-form{
+    display: flex;
+    flex-direction: column;
+}
+.welcome-wrapper {
+    background-color: #ececec;
+    height: 100%;
+
+    justify-content: space-evenly;
+    padding-top: 20px;
+}
+.logoPageTop{
+    background-color: transparent;
+        display: flex;
+        flex-direction: row;
+        align-items: end;
+        width: 25%;
+}
+#about-link {
+    margin-left: 0px;
+    /* font-size: 15px;
+    font-weight: bold;
+    color: white;
+    z-index: 1; */
+}
+
+#optionsMenu {
+    background-color: #dbf0f9;
+    width: 40vw;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    z-index: 1;
+    font-size: 17px;
+    animation: grow 0.2s ease-out;
+    margin-left: 1px;
+    border-right: 1px solid grey;
+}
+textarea {
+    width: 30vw;
+    height: 10vh;
+    margin-top: 10px;
+    border: 1px solid grey;
+}
+
+p {
+    margin-left: 5px;
+}
+
+#description-by-logo {
+    max-width: 100%;
+    margin-left: 30vw;
+}
+
+.friends-wrapper {
+
+    flex-direction: column;
+
+}
+.friend-box{
+        margin-top: 30px;
+}
+
+.chat-ui {
+    display: flex;
+    flex-direction: row;
+
+
+}
+.chat-description-box {
+
+    width: 80vw;
+}
+
+.wow-alert-content {
+    margin-left: -190px;
+    margin-top: -61px;
+}
+.section-wrapper {
+    width: 100vw;
+
+
+}
+.appHeaderWrapper {
+
+    width: 100vw;
+
+}
+
 }

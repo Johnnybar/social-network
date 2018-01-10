@@ -18,8 +18,10 @@ export default class App extends React.Component {
         this.state = {}
         this.showBioUpdate=this.showBioUpdate.bind(this)
         this.sendFriendRequest = this.sendFriendRequest.bind(this)
+        // this.collapse = this.collapse.bind(this)
 
     }
+
 
     showBioUpdate(){
         this.setState({bioUpdateIsVisible: !this.state.bioUpdateIsVisible})
@@ -46,12 +48,17 @@ export default class App extends React.Component {
         const children = React.cloneElement(this.props.children, {
             showBioUpdate: this.showBioUpdate,
             sendFriendRequest: this.sendFriendRequest,
+
             first,
             last,
             bio,
             imgurl,
             email,
         })
+        const collapse= function() {
+            console.log('hehhehe');
+            this.setState({bioUpdateIsVisible: false});
+        };
         const setImage = (imgurl) => {
             this.setState({
                 imgurl: imgurl
@@ -75,11 +82,12 @@ export default class App extends React.Component {
                     last={this.state.last}
                     showUploader={() => this.setState({ uploaderIsVisible: !this.state.uploaderIsVisible })}
 
+
                 />
                 {this.state.uploaderIsVisible && <UploadProfilePic setImage={setImage}/>}
                 {children}
                 {/* <OtherUsers /> */}
-                {this.state.bioUpdateIsVisible && <UpdateProfileInfo setBio = {setBio} />}
+                {this.state.bioUpdateIsVisible && <UpdateProfileInfo setBio = {setBio} onblur= {this.collapse}/>}
 
             </div>
         )

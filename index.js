@@ -127,6 +127,7 @@ app.post('/login', function(req, res){
                     });
             }).catch(function(){
                 console.log('ERROR in catch of getHash');
+                res.json({success:false});
             });
     }
     else{
