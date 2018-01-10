@@ -1,5 +1,27 @@
-// var a = [5, 6, 8];
+// function XO(str) {
+//     let newStr=str.toLowerCase;
+//     let thirdStr;
+//     for(var i =0;i<newStr.length;i++){
+//         for(var j=i+1;i<newStr.length;i++){
+//             if(newStr[i]==='o'|| newStr[i]==='x'){
+//                 if(newStr[i]===newStr[j]){
+//                     thirdStr+=1;
+//                     console.log(thirdStr);
+//                 }
+//                 else{
+//                     return false;
+//                 }
 //
-// var b= a.filter(function(x) { return x <6; });
+//             }
+//             //IF NO x OR o at all:
+//             else{
+//                 return true;
+//             }
+//         }
 //
-// console.log(b);
+//     }
+//
+//     //code here
+// }
+//
+// XO('xoxo');
