@@ -34,10 +34,10 @@ export default class UpdateProfileInfo extends React.Component {
         var placeholder = $(".focus-placeholder")
 
         placeholder.on('click', function(){
-            update.toggle()
+            update.toggle(300)
         })
         musicBio.on('click', function(e){
-            update.toggle();
+            update.toggle(300);
             e.stopPropagation()
         })
     }

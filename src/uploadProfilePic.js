@@ -29,7 +29,7 @@ componentDidMount() {
 
     $(document).click(function(e) {
         e.stopPropagation();
-        $('#optionsMenu').hide();
+        $('#optionsMenu').hide(500);
     });
     $('#hamburger-menu').click(function(e) {
         e.stopPropagation();
