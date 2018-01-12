@@ -420,7 +420,7 @@ textarea{
     border-right: 1px solid grey;
 }
 textarea {
-    width: 30vw;
+    width: 50vw;
     height: 10vh;
     margin-top: 10px;
     border: 1px solid grey;
@@ -465,9 +465,15 @@ p {
 
 }
 .appHeaderWrapper {
-
     width: 100vw;
+}
 
+input {
+    margin-top: 5px;
+}
+
+.default-btn {
+    margin-top: 10px;
 }
 
 }
