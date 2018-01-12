@@ -87,7 +87,7 @@ export default class App extends React.Component {
                 {this.state.uploaderIsVisible && <UploadProfilePic setImage={setImage}/>}
                 {children}
                 {/* <OtherUsers /> */}
-                {this.state.bioUpdateIsVisible && <UpdateProfileInfo setBio = {setBio} onblur= {this.collapse}/>}
+                {this.state.bioUpdateIsVisible && <UpdateProfileInfo setBio = {setBio} onBlur= {this.collapse}/>}
 
             </div>
         )

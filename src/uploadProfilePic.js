@@ -21,18 +21,31 @@ export default class UploadProfilePic extends React.Component {
         })
     }
 
+componentDidMount() {
+    $('#optionsMenu').click(function(e) {
+        e.stopPropagation();
+        $('#optionsMenu').toggle();
+    });
+
+    $(document).click(function(e) {
+        e.stopPropagation();
+        $('#optionsMenu').hide();
+    });
+    $('#hamburger-menu').click(function(e) {
+        e.stopPropagation();
+        $('#optionsMenu').toggle();
+    });
+}
+
     render() {
         return (
             <div id='optionsMenu'>
-
 
                 <h6 className='nav-item'>Change Profile Pic <input type = "file" onChange = {(e)=> this.doUpload(e)} /></h6>
                 <Link to="/friends"><h6 className='nav-item'>Friends</h6></Link>
                 <Link to= "/online"><h6 className='nav-item'>Who's Online</h6></Link>
                 <Link to="/chat"><h6 className='nav-item'>Chat Room</h6></Link>
                    <button><a href='/LogOut/'>Log Out</a></button>
-
-
 
                 {/* <img src = { this.state.setImage }  /> */}
                 {/* <button onClick={() => this.handleSubmit() }>Submit</button> */}
