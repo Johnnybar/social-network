@@ -1,7 +1,10 @@
-
+@font-face {
+font-family: Roboto;
+src: url(/System/Library/Fonts/Roboto-Regular.ttf) format('truetype');
+}
 
 *{
-    font-family: Roboto;
+    font-family: Roboto,'Helvetica', 'Verdana', sans-serif;;
     margin-left: 1px;
     font-size: 12px;
 }
