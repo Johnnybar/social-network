@@ -74,6 +74,12 @@ export default class App extends React.Component {
         // }
         return (
             <div>
+                <div id="ph-container">
+                <div id="ph1" class="ph-border">
+                </div>
+                <div id="ph2" class="ph-border">
+                </div>
+                </div>
                 <Logo />
                 {/* <Logout /> */}
                 <ProfilePic

@@ -31,10 +31,14 @@ export default class UpdateProfileInfo extends React.Component {
 
         var update = $('.update-bio-ui' )
         var musicBio = $("#music-bio");
-        var placeholder = $(".focus-placeholder")
+        var placeholder = $("#ph-container");
+        var textarea = $("textarea, .nice-btn")
+
+
 
         placeholder.on('click', function(){
-            update.toggle(300)
+            console.log('hello');
+            update.hide(300)
         })
         musicBio.on('click', function(e){
             update.toggle(300);
@@ -47,12 +51,10 @@ export default class UpdateProfileInfo extends React.Component {
 
         return(
 
-            <div className='update-bio-ui' >
-                <div className='focus-placeholder'>
-                </div>
-                <textarea onChange={(e) => this.setState({bio: e.target.value}) } className='textarea-class' name= 'bio' placeholder='Info' />
-                <button className= 'nice-btn' onClick={e => this.updateBio(e) }>Share your taste</button>
-            </div>
-        )
+        <div className = 'update-bio-ui' >
+
+            <textarea onChange={(e) => this.setState({bio: e.target.value})} className='textarea-class' name='bio' placeholder='Info'/>
+            <button className='nice-btn' onClick={e => this.updateBio(e)}>Share your taste</button>
+        </div>)
     }
 }
