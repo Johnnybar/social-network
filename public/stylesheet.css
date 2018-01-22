@@ -245,7 +245,7 @@ animation-fill-mode: forwards;
 
 #optionsMenu{
     background-color: #dbf0f9;
-    width: 15vw;
+    width: 13vw;
     position: absolute;
     display: flex;
     flex-direction: column;
@@ -253,7 +253,7 @@ animation-fill-mode: forwards;
     font-size:17px;
     animation: grow 0.2s ease-out;
     margin-left: 1px;
-    border-right: 1px solid grey
+    /* border-right: 1px solid grey */
 }
 
 input[type='file'] {
@@ -460,6 +460,7 @@ textarea{
     margin-left: 1px;
     border-right: 1px solid grey;
 }
+
 textarea {
     width: 50vw;
     height: 10vh;

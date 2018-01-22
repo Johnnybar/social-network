@@ -5,7 +5,6 @@ export default class UpdateProfileInfo extends React.Component {
     constructor(props) {
         super(props);
         this.state = {}
-        // this.collapse = this.collapse.bind(this)
     }
 
     // collapse(){
@@ -26,25 +25,8 @@ export default class UpdateProfileInfo extends React.Component {
             }
         })
     }
-    componentDidMount() {
 
 
-        var update = $('.update-bio-ui' )
-        var musicBio = $("#music-bio");
-        var placeholder = $("#ph-container");
-        var textarea = $("textarea, .nice-btn")
-
-
-
-        placeholder.on('click', function(){
-            console.log('hello');
-            update.hide(300)
-        })
-        musicBio.on('click', function(e){
-            update.toggle(300);
-            e.stopPropagation()
-        })
-    }
 
     render(){
 

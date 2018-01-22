@@ -7,7 +7,14 @@ export default class Profile extends React.Component {
         this.state = {};
 
     }
+    componentWillUpdate(nextProps, nextState) {
 
+       if (this.props.showBioUpdate) {
+         document.getElementsByTagName('body')[0].addEventListener('click', this.props.hideBioUpdate);
+         // console.log(this.state.uploaderIsVisible);
+       }
+
+    }
 render(){
     const {first, last, bio, email, showBioUpdate} = this.props
 

@@ -15,26 +15,40 @@ import socketConnections from './socket'
 export default class App extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {}
+        this.state = {
+            // uploaderIsVisible:false
+        }
         this.showBioUpdate=this.showBioUpdate.bind(this)
-        this.sendFriendRequest = this.sendFriendRequest.bind(this)
+        this.hideBioUpdate=this.hideBioUpdate.bind(this)
+        // this.sendFriendRequest = this.sendFriendRequest.bind(this)
         // this.collapse = this.collapse.bind(this)
 
     }
 
 
-    showBioUpdate(){
-        this.setState({bioUpdateIsVisible: !this.state.bioUpdateIsVisible})
+    showBioUpdate(e){
+        if (this.state.bioUpdateIsVisible == false){
+            this.setState({ bioUpdateIsVisible: true })
+        }
+            else{
+                this.setState({bioUpdateIsVisible:false})
+            }
+        }
+    hideBioUpdate(e){
+    if (this.state.bioUpdateIsVisible == true){
+        e.stopPropagation()
+        this.setState({ bioUpdateIsVisible: false })
+    }
+        else{
+            e.preventDefault()
+        }
 }
 
-    sendFriendRequest(){
-        // console.log('clicked inside sendFriendRequest');
-        // this.setState({status: 'Friend Request Sent'});
 
-
-    }
 
     componentDidMount() {
+        this.setState({uploaderIsVisible:false})
+        this.setState({bioUpdateIsVisible:false})
         socketConnections()
         axios.get('/user').then(({ data }) => {
             // console.log('this is the logged in user data: ',data);
@@ -44,21 +58,18 @@ export default class App extends React.Component {
 
     }
     render() {
-        const {first, last, bio, imgurl, email, showBioUpdate, sendFriendRequest} = this.state
+        const {first, last, bio, imgurl, email, showBioUpdate, sendFriendRequest,hideBioUpdate} = this.state
         const children = React.cloneElement(this.props.children, {
             showBioUpdate: this.showBioUpdate,
             sendFriendRequest: this.sendFriendRequest,
-
+            hideBioUpdate:this.hideBioUpdate,
             first,
             last,
             bio,
             imgurl,
             email,
         })
-        const collapse= function() {
-            console.log('hehhehe');
-            this.setState({bioUpdateIsVisible: false});
-        };
+
         const setImage = (imgurl) => {
             this.setState({
                 imgurl: imgurl
@@ -74,26 +85,38 @@ export default class App extends React.Component {
         // }
         return (
             <div>
-                <div id="ph-container">
-                <div id="ph1" class="ph-border">
-                </div>
-                <div id="ph2" class="ph-border">
-                </div>
-                </div>
+
                 <Logo />
                 {/* <Logout /> */}
                 <ProfilePic
                     imgurl={this.state.imgurl}
                     first={this.state.first}
                     last={this.state.last}
-                    showUploader={() => this.setState({ uploaderIsVisible: !this.state.uploaderIsVisible })}
-
+                    showUploader={(e) => {
+                        if (this.state.uploaderIsVisible == false){
+                            this.setState({ uploaderIsVisible: true })
+                        }
+                            else{
+                                this.setState({uploaderIsVisible: false})
+                            }
+                        }
+                 }
+                    hideUploader={(e) => {
+                        if (this.state.uploaderIsVisible == true){
+                            e.stopPropagation()
+                            this.setState({ uploaderIsVisible: false })
+                        }
+                            else{
+                                e.preventDefault()
+                            }
+                    }
+                }
 
                 />
-                {this.state.uploaderIsVisible && <UploadProfilePic setImage={setImage}/>}
+                {this.state.uploaderIsVisible==true && <UploadProfilePic setImage={setImage}/>}
                 {children}
                 {/* <OtherUsers /> */}
-                {this.state.bioUpdateIsVisible && <UpdateProfileInfo setBio = {setBio} onBlur= {this.collapse}/>}
+                {this.state.bioUpdateIsVisible==true && <UpdateProfileInfo setBio = {setBio} onBlur= {this.collapse}/>}
 
             </div>
         )

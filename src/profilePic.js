@@ -20,6 +20,21 @@ export default class ProfilePic extends React.Component {
             //     console.log('uploader should be here!');
             // }
         }
+
+}
+
+componentWillUpdate(nextProps, nextState) {
+    console.log(this.props);
+   if (this.props.showUploader) {
+     document.getElementsByTagName('body')[0].addEventListener('click', this.props.hideUploader);
+     // console.log(this.state.uploaderIsVisible);
+   }
+   // if (this.props.showBioUpdate) {
+   //     console.log('heyo');
+   //   document.getElementsByTagName('body')[0].addEventListener('click', this.props.showBioUpdate);
+   //   // console.log(this.state.uploaderIsVisible);
+   // }
+
 }
 
         render(){
