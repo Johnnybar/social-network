@@ -50,7 +50,7 @@ export class Chat extends React.Component {
         }
 
         return (<div className='section-wrapper clickObj'>
-            <h4 className='font-white chat-description-box'>Welcome to chat.<br/> Listening to something soooo good?<br></br> Paste a link and get your friends in the mood</h4>
+            <h3 className='font-white chat-description-box'>Welcome to chat.<br/> Listening to something soooo good?<br></br> Paste a link and get your friends in the mood</h3>
             <div className='chat-ui'>
 
                 <ul>{messagesList}</ul>
