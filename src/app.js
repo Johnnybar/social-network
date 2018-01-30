@@ -16,17 +16,15 @@ export default class App extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            // uploaderIsVisible:false
         }
         this.showBioUpdate=this.showBioUpdate.bind(this)
         this.hideBioUpdate=this.hideBioUpdate.bind(this)
-        // this.sendFriendRequest = this.sendFriendRequest.bind(this)
-        // this.collapse = this.collapse.bind(this)
 
     }
 
-
     showBioUpdate(e){
+
+        e.preventDefault()
         if (this.state.bioUpdateIsVisible == false){
             this.setState({ bioUpdateIsVisible: true })
         }
@@ -35,8 +33,9 @@ export default class App extends React.Component {
             }
         }
     hideBioUpdate(e){
+
+        e.preventDefault()
     if (this.state.bioUpdateIsVisible == true){
-        e.stopPropagation()
         this.setState({ bioUpdateIsVisible: false })
     }
         else{
@@ -44,14 +43,11 @@ export default class App extends React.Component {
         }
 }
 
-
-
     componentDidMount() {
         this.setState({uploaderIsVisible:false})
         this.setState({bioUpdateIsVisible:false})
         socketConnections()
         axios.get('/user').then(({ data }) => {
-            // console.log('this is the logged in user data: ',data);
             this.setState(data);
         })
 
@@ -93,6 +89,7 @@ export default class App extends React.Component {
                     first={this.state.first}
                     last={this.state.last}
                     showUploader={(e) => {
+                        e.preventDefault()
                         if (this.state.uploaderIsVisible == false){
                             this.setState({ uploaderIsVisible: true })
                         }
@@ -102,8 +99,9 @@ export default class App extends React.Component {
                         }
                  }
                     hideUploader={(e) => {
+                        e.preventDefault()
+                        // e.stopPropagation()
                         if (this.state.uploaderIsVisible == true){
-                            e.stopPropagation()
                             this.setState({ uploaderIsVisible: false })
                         }
                             else{

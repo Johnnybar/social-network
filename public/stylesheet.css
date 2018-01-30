@@ -196,7 +196,7 @@ button {
 
 
 
-.section-wrapper{
+.section-wrapper {
     background-color: #ececec;
     width: 98vw;
     display: flex;
@@ -208,7 +208,7 @@ button {
     display: flex;
     flex-direction: row;
 }
-.welcome-wrapper{
+.welcome-wrapper {
     background-color: #ececec;
     width: 98vw;
     height: 10vh;
@@ -309,6 +309,7 @@ background-color: skyblue;
     margin-left: 15px;
     animation: fall 0.5s ease-in
 }
+
 
 .bio-ui {
     display: flex;

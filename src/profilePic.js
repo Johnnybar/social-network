@@ -16,26 +16,19 @@ export default class ProfilePic extends React.Component {
             imgurl:'',
             first: '',
             last: '',
-            // showUploader: function(){
-            //     console.log('uploader should be here!');
-            // }
+
         }
 
 }
 
-componentWillUpdate(nextProps, nextState) {
-    console.log(this.props);
-   if (this.props.showUploader) {
-     document.getElementsByTagName('body')[0].addEventListener('click', this.props.hideUploader);
-     // console.log(this.state.uploaderIsVisible);
-   }
-   // if (this.props.showBioUpdate) {
-   //     console.log('heyo');
-   //   document.getElementsByTagName('body')[0].addEventListener('click', this.props.showBioUpdate);
-   //   // console.log(this.state.uploaderIsVisible);
-   // }
-
-}
+// componentWillUpdate(nextProps, nextState) {
+// //WILL HIDE SIDEBAR WHEN MIDDLE OF SCREEN IS CLICKED
+//    if (this.props.showUploader) {
+//      document.getElementsByClassName('clickObj')[0].addEventListener('click', this.props.hideUploader);
+//    }
+//
+//
+// }
 
         render(){
             if(this.props.id){

@@ -13,7 +13,7 @@ const mapStateToProps = function(state) {
 export class Chat extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { 
+        this.state = {
         };
         this.handleSubmit = this.handleSubmit.bind(this)
     }
@@ -49,7 +49,7 @@ export class Chat extends React.Component {
             return null
         }
 
-        return (<div className='section-wrapper'>
+        return (<div className='section-wrapper clickObj'>
             <h4 className='font-white chat-description-box'>Welcome to chat.<br/> Listening to something soooo good?<br></br> Paste a link and get your friends in the mood</h4>
             <div className='chat-ui'>
 

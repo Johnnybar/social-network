@@ -9,9 +9,9 @@ export default class Profile extends React.Component {
     }
     componentWillUpdate(nextProps, nextState) {
 
+//Clicking middle of screen closes bio update window
        if (this.props.showBioUpdate) {
-         document.getElementsByTagName('body')[0].addEventListener('click', this.props.hideBioUpdate);
-         // console.log(this.state.uploaderIsVisible);
+         document.getElementsByClassName('clickObj')[0].addEventListener('click', this.props.hideBioUpdate);
        }
 
     }
@@ -19,12 +19,13 @@ render(){
     const {first, last, bio, email, showBioUpdate} = this.props
 
     return(
-        <div className='section-wrapper'>
-
+        <div>
+        <div className='section-wrapper clickObj'>
             <p>Hello, <span className='highlight-text'><i>{first} {last}</i></span></p>
             <p><i>Current Bio: </i>{bio}</p>
-            <h5 id='music-bio' onClick={showBioUpdate}>Tell Us About The Music You Love ▼</h5>
 
+        </div>
+        <h5 id='music-bio' onClick={showBioUpdate}>Tell Us About The Music You Love ▼</h5>
         </div>
     )
 }

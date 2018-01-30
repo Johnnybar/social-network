@@ -7,18 +7,13 @@ export default class UpdateProfileInfo extends React.Component {
         this.state = {}
     }
 
-    // collapse(){
-    //     console.log(this.state);
-    //     this.setState({bioUpdateIsVisible: false});
-    //     console.log(this.state);
-    // };
+
     updateBio(){
         axios.post('/updateBio', this.state)
         .then(resp => {
             if (resp.data.success) {
                 this.props.setBio(resp.data.bio);
             } else {
-                // console.log('there was an error in update bio');
                 this.setState({
                     error: true
                 })

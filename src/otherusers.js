@@ -45,7 +45,7 @@ componentDidMount() {
     );
 }
 
-return (<div className='section-wrapper'>
+return (<div className='section-wrapper clickObj'>
 <h2>{this.state.first}</h2>
 <h3>{this.state.bio}</h3>
 <img src={this.state.imgurl} id='otherUsersImg'/>

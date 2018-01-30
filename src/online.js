@@ -34,7 +34,7 @@ componentDidMount(){
 
         );
         return (
-            <div className='section-wrapper'>
+            <div className='section-wrapper clickObj'>
                          <div>
                              <h2>Online Users</h2>
                              <ul>{onlineUsersList}</ul>

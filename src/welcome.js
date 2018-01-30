@@ -16,7 +16,7 @@ export default class Welcome extends Component{
         return(
             <div>
                 <img src='../trackshare1.png' className='logoPageTop'/>
-                <div className='welcome-wrapper'>
+                <div className='welcome-wrapper clickObj'>
                 {/* <Logout /> */}
                 {this.props.children}
                 <div><Link className='font-white log-reg-btn' to="/">Register</Link></div>

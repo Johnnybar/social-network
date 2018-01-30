@@ -54,7 +54,7 @@ componentDidMount(){
             );
 
         return (
-            <div className='friends-wrapper'>
+            <div className='friends-wrapper clickObj'>
                     <div className='perspective-friend-box'>
                          <div className='friend-box'>
                              <h2>Pending Friends</h2>

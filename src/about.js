@@ -15,7 +15,7 @@ export default class About extends React.Component {
 
     render() {
         return(
-            <div className='section-wrapper'>
+            <div className='section-wrapper clickObj'>
                 <h2>
                     Sick of endless mixes and songs tailored for you by a soulless, mechanical machine?
                 </h2>
