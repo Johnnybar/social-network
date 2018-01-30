@@ -25,6 +25,7 @@ export default class Welcome extends Component{
                 <div><Link className='font-white log-reg-btn' to="/login">Login</Link></div>
 
             </div>
+            <p className='test-mode-text'><i>To view website in demo mode, log in with these credentials:<br/>email:<strong>'email'</strong>, password:<strong>'password'</strong></i></p>
             </div>
         )
     }

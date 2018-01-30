@@ -22,6 +22,7 @@ render(){
         <div>
         <div className='section-wrapper clickObj'>
             <p>Hello, <span className='highlight-text'><i>{first} {last}</i></span></p>
+            
             <p><i>Current Bio: </i>{bio}</p>
 
         </div>

@@ -19,12 +19,12 @@ export class Chat extends React.Component {
     }
 
     handleSubmit(e) {
-        // var text = this.state.text
-        // socketConnections().emit('chat', (text));
-        // var textarea = document.getElementById('textarea')
-        // textarea.value =''
-        console.log('no chatssss');
-        alert("Chat messaging is disabled in demo mode", "ok")
+        var text = this.state.text
+        socketConnections().emit('chat', (text));
+        var textarea = document.getElementById('textarea')
+        textarea.value =''
+        // console.log('no chatssss');
+        // alert("Chat messaging is disabled in demo mode", "ok")
 
 
     }
@@ -55,7 +55,7 @@ export class Chat extends React.Component {
 
                 <ul>{messagesList}</ul>
 
-                <textarea id='textarea' value={this.state.value} placeholder='Paste link' onChange={(e) => this.setState({text: e.target.value})}></textarea>
+                <textarea id='textarea' value={this.state.value} placeholder='Paste YouTube link' onChange={(e) => this.setState({text: e.target.value})}></textarea>
                 <button className='nice-btn' onClick={this.handleSubmit}>Send Track</button>
 
         </div>
