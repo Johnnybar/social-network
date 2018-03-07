@@ -15,7 +15,7 @@ export default class Welcome extends Component{
     render(){
         return(
             <div>
-                <img src='../trackshare1.png' className='logoPageTop'/>
+                <img src='../trackshare.png' className='logoPageTop'/>
                 <div className='welcome-wrapper clickObj'>
                 {/* <Logout /> */}
                 {this.props.children}

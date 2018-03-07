@@ -21,10 +21,21 @@ export default class UploadProfilePic extends React.Component {
         })
     }
 
-componentDidMount() {
+    componentDidMount() {
+        $('#optionsMenu').click(function(e) {
+            e.stopPropagation();
+            $('#optionsMenu').toggle();
+        });
 
-
-}
+        $(document).click(function(e) {
+            e.stopPropagation();
+            $('#optionsMenu').hide();
+        });
+        $('#hamburger-menu').click(function(e) {
+            e.stopPropagation();
+            $('#optionsMenu').toggle();
+        });
+    }
 
     render() {
         return (

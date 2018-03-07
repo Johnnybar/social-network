@@ -394,12 +394,21 @@ textarea{
     font-style: italic;
     background-color: black;
 }
+
+.focus-placeholder{
+    width: 80vw;
+    height: 100%;
+    left: 35vw;
+    position: fixed;
+    bottom: 0vw;
+}
 /* NOT  FOR TABLETS  */
 @media only screen and (max-width: 568px) {
 
 #music-bio {
     width: 50vw;
 }
+
 
 .register-form{
     display: flex;
