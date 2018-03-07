@@ -21,7 +21,7 @@ export default class About extends React.Component {
                 </h2>
                 <h4><span className='highlight-text'>Track#Share</span> is here for you.<br /><br />
                     Connect with friends who share your musical taste, rejoice in the chat room
-                    and get fresh, <br/>ever-changing tracks from your staste buddies.</h4>
+                    and get fresh, <br/>ever-changing tracks from your taste buddies.</h4>
             </div>
             )
 
