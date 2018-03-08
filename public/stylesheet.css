@@ -201,12 +201,14 @@ button {
     height: 70px;
     border-radius: 40px;
     padding: 10px;
+    transition: filter 0.2s ease-in;
 }
 
-/* #profilePic:hover{
-animation: shadow 0.5s ease-out;
-animation-fill-mode: forwards;
-} */
+
+
+#profilePic:hover{
+filter: brightness(50%);
+}
 
 @-webkit-keyframes grow {
     0% {
@@ -246,6 +248,11 @@ input[type='file'] {
 .profilePicFriendsPage{
     width: 100px;
     margin-left: 10px;
+    transition: filter 0.2s ease-in;
+}
+
+.profilePicFriendsPage:hover{
+    filter: brightness(50%);
 }
 
 #profilePicOnPage{
