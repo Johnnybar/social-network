@@ -6,7 +6,7 @@ export default function Logo (){
         <div className='logoPageTop'>
 
             <Link to='/'><img id='logo' src='/trackshare.png' /></Link>
-            <img src= '/descriptionByLogo.png' id='description-by-logo'/>
+            
 
     </div>
     )
