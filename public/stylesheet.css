@@ -376,9 +376,15 @@ textarea {
   bottom: 0vw;
 }
 
-@media only screen and (max-width: 1200px) {
+@media only screen and (max-width: 1500px) {
   * {
-    font-size: 120%
+    font-size: 103%
+  }
+  #about-link {
+    font-size: 20px
+  }
+  .nice-btn {
+    font-size: 11px;
   }
 }
 
