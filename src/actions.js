@@ -10,7 +10,6 @@ export const allFriendRequests = function() {
     });
 };
 
-//ADD ID TO ACTIONS NOW THAT WE ARE GETTING IT FROM FRIENDS
 
 export const acceptFriendOnFriends = function(id) {
     return axios.post('/acceptFriendOnFriends', {id}).then((resp)=>{
@@ -81,8 +80,3 @@ export function alertAboutFriendRequest(id) {
     };
 
 }
-// if (action.type == 'ADD_SINGLE_MESSAGE') {
-//     state = Object.assign({}, state, {
-//         messagesArr: [ ...messagesArr, action.messageWithUser ]
-//     });
-// }
