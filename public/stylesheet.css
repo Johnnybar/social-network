@@ -376,6 +376,12 @@ textarea {
   bottom: 0vw;
 }
 
+@media only screen and (max-width: 1200px) {
+  * {
+    font-size: 120%
+  }
+}
+
 @media only screen and (max-width: 568px) {
   #music-bio {
     width: 50vw;
