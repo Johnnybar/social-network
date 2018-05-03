@@ -376,7 +376,7 @@ textarea {
   bottom: 0vw;
 }
 
-@media only screen and (max-width: 1500px) {
+@media only screen and (max-width: 1200px) {
   * {
     font-size: 102%
   }
