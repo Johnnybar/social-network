@@ -37,7 +37,7 @@ class Friends extends React.Component {
         {pending.first}, {pending.last}</div>
       <Link to={`/users/${pending.id}`}><img src=
       // {pending.imgurl}
-      "https://picsum.photos/200"
+      "http://lorempixel.com/400/200/people"
       className='profilePicFriendsPage'/></Link>
       <button className='nice-btn' onClick ={(e)=> this.props.dispatch(acceptFriendOnFriends(pending.id))}>Accept Friend Request</button>
     </div>);
@@ -46,7 +46,7 @@ class Friends extends React.Component {
         {accepted.first}, {accepted.last}
       </div>
       <Link to={`/users/${accepted.id}`}>
-      <img src="https://picsum.photos/200"
+      <img src="http://lorempixel.com/400/200/people"
       // {accepted.imgurl}
        className='profilePicFriendsPage'/></Link>
       <button className='nice-btn' onClick= {(e)=> this.props.dispatch(terminateFriendOnFriends(accepted.id))}>End Friendship</button>
