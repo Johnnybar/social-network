@@ -35,14 +35,20 @@ class Friends extends React.Component {
     const pendingFriendsList = pendingFriends.map(pending => <div>
       <div>
         {pending.first}, {pending.last}</div>
-      <Link to={`/users/${pending.id}`}><img src={pending.imgurl} className='profilePicFriendsPage'/></Link>
+      <Link to={`/users/${pending.id}`}><img src=
+      // {pending.imgurl}
+      "https://picsum.photos/200"
+      className='profilePicFriendsPage'/></Link>
       <button className='nice-btn' onClick ={(e)=> this.props.dispatch(acceptFriendOnFriends(pending.id))}>Accept Friend Request</button>
     </div>);
     const acceptedFriendsList = acceptedFriends.map(accepted => <div >
       <div>
         {accepted.first}, {accepted.last}
       </div>
-      <Link to={`/users/${accepted.id}`}><img src={accepted.imgurl} className='profilePicFriendsPage'/></Link>
+      <Link to={`/users/${accepted.id}`}>
+      <img src="https://picsum.photos/200"
+      // {accepted.imgurl}
+       className='profilePicFriendsPage'/></Link>
       <button className='nice-btn' onClick= {(e)=> this.props.dispatch(terminateFriendOnFriends(accepted.id))}>End Friendship</button>
     </div>);
 

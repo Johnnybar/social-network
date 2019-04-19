@@ -22,7 +22,10 @@ export default class ProfilePic extends React.Component {
     }
     return (<div className='appHeaderWrapper'>
       <img src='/vertical.svg' onClick={this.props.showUploader} id='hamburger-menu'/>
-      <Link to='/'><img src={this.props.imgurl} id='profilePic' alt={this.props.first}/></Link>
+      <Link to='/'><img src=
+      // {this.props.imgurl}
+      "http://res.publicdomainfiles.com/pdf_view/67/13925290811011.png"
+      id='profilePic' alt={this.props.first}/></Link>
       <Link id='about-link' to='/about'>About
         <br/>Track#Share</Link>
     </div>)
