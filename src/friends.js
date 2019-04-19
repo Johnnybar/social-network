@@ -48,6 +48,9 @@ class Friends extends React.Component {
     for (var i = 0; i < acceptedFriends.length; i++) {
       acceptedFriends[i].imgurl = "https://picsum.photos/200"
     }
+    for (var i = 0; i < acceptedFriends.length; i++) {
+      acceptedFriends[i].imgurl = arr[i+3]
+    }
     const acceptedFriendsList = acceptedFriends.map(accepted => <div >
       <div>
         {accepted.first}, {accepted.last}
